@@ -2,7 +2,7 @@
 #define DUNGEONCRAWLER_GLOBALS_H
 
 // Board
-int NUMLEDS = 300;
+int const NUMLEDS = 300;
 int FPS = 1000/60;
 
 #endif //DUNGEONCRAWLER_GLOBALS_H
