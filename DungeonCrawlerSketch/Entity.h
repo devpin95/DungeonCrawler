@@ -2,19 +2,20 @@
 #define ENTITY_H
 
 #include "Pixel.h"
+#include <cmath>
 
 class Entity {
 public:
     inline Entity() = default;
-    inline void setSpd( int s ) { speed = s; };
+    inline void setSpd( float s ) { speed = s; };
 
     // mutators
     inline void setAnchorIndex( int index ) { anchor = index; };
 
     // accessors
-    int getAnchorIndex( void ) const { return anchor; };
-    int getLeftBoundIndex( void ) const { return anchor - left_bound; };
-    int getRightBoundIndex( void ) const { return anchor + right_bound; };
+    int getAnchorIndex( void ) const { return (int)round(anchor); };
+    int getLeftBoundIndex( void ) const { return (int)round(anchor) - left_bound; };
+    int getRightBoundIndex( void ) const { return (int)round(anchor) + right_bound; };
     int getLeftBound( void ) const { return left_bound; };
     int getRightBound( void ) const { return right_bound; };
 
@@ -22,8 +23,8 @@ public:
     virtual void updateEntity() = 0;
     virtual void drawEntity() = 0;
 protected:
-    int speed = 0;
-    int anchor = 0;
+    double speed = 0;
+    double anchor = 0;
     int left_bound = 0;
     int right_bound = 5;
 };
