@@ -3,7 +3,9 @@
 
 struct Pixel {
     int index;
-    int color;
+    int R;
+    int G;
+    int B;
 };
 
 #endif //PIXEL_H
