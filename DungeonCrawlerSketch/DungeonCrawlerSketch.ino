@@ -1,4 +1,4 @@
-#include "FastLED/FastLED.h"
+#include <FastLED.h>
 #include <Wire.h>
 
 #include "globals.h"

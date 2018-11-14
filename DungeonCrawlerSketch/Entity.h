@@ -5,6 +5,8 @@
 #include "Pixel.h"
 #include <Math.h>
 
+//#include <cmath>
+
 class Entity {
 public:
     inline Entity() = default;
