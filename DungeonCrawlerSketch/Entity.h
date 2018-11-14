@@ -1,8 +1,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include "FastLED/FastLED.h"
 #include "Pixel.h"
-#include <cmath>
+#include <Math.h>
 
 class Entity {
 public:
@@ -21,7 +22,7 @@ public:
 
     // functions
     virtual void updateEntity() = 0;
-    virtual void drawEntity() = 0;
+    virtual void drawEntity( CRGB board[], const int &blen ) = 0;
 protected:
     double speed = 0;
     double anchor = 0;
