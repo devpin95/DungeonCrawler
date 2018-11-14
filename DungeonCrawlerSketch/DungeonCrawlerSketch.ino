@@ -3,9 +3,11 @@
 
 #include "globals.h"
 #include "Player.h"
+#include "Patroller.h"
 
 // Global variables
 Player player;
+Patroller patroller( 150 );
 int tempspd = 1;
 
 //LED Strip 
@@ -43,8 +45,11 @@ void loop() {
   if ( player.getRightBoundIndex() > NUMLEDS ) {
     player.setAnchorIndex( NUMLEDS - player.getRightBound() );
   }
-  
+
+  patroller.updateEntity();
   player.updateEntity();
+
+  patroller.drawEntity( board, NUMLEDS );
   drawPlayer();
 
   //This is where we need to have something like drawEntity(board) so it can update it
