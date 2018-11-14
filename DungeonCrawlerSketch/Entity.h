@@ -1,11 +1,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "FastLED/FastLED.h"
 #include "Pixel.h"
 #include <Math.h>
 
-//#include <cmath>
 
 class Entity {
 public:
