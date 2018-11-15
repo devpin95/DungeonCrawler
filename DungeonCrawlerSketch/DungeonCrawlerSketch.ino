@@ -30,6 +30,7 @@ void setup() {
   Wire.write(0x6B);  // PWR_MGMT_1 register
   Wire.write(0);     // set to zero (wakes up the MPU-6050)
   Wire.endTransmission(true);
+  //Serial.begin(9600);
 }
 
 void loop() {
@@ -40,8 +41,21 @@ void loop() {
 
   // get the value from the accelerometer here
   getInput();
-  player.setSpd(map(AcX, -20000, 20000, -3, 4));
+  if (player.isAttacking())//if player is attacking, we don't want him to move
+  {
+    player.setSpd(0);
+  }
+  else
+  {
+    player.setSpd(map(AcX, -20000, 20000, -3, 4));
+  }
 
+  //check for attack
+  if (abs(GyY) > 20000 || abs(GyZ) > 20000)
+  {
+    player.startAttack();
+  }
+  
   if ( player.getRightBoundIndex() > NUMLEDS ) {
     player.setAnchorIndex( NUMLEDS - player.getRightBound() );
   }
@@ -50,20 +64,11 @@ void loop() {
   player.updateEntity();
 
   patroller.drawEntity( board, NUMLEDS );
-  drawPlayer();
-
-  //This is where we need to have something like drawEntity(board) so it can update it
-  //player.drawEntity();
+  player.drawEntity( board, NUMLEDS );
 
   //redraw the game state
   FastLED.show();
   delay(FPS);
-}
-
-//for now I just call this to draw the player
-void drawPlayer()
-{
-  board[player.getAnchorIndex()] = CRGB(0, 255, 0);
 }
 
 
@@ -79,13 +84,13 @@ void getInput()
   GyX=Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-  /*Serial.print("AcX = "); Serial.print(AcX);
+  Serial.print("AcX = "); Serial.print(AcX);
   Serial.print(" | AcY = "); Serial.print(AcY);
   Serial.print(" | AcZ = "); Serial.print(AcZ);
   Serial.print(" | GyX = "); Serial.print(GyX);
   Serial.print(" | GyY = "); Serial.print(GyY);
-  Serial.print(" | GyZ = "); Serial.println(GyZ);*/
-
+  Serial.print(" | GyZ = "); Serial.println(GyZ);
+  
   //Serial.println(map(AcX, -20000, 20000, -3, 4));
 }
 

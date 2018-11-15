@@ -3,8 +3,8 @@
 Patroller::Patroller( int spos ) : Entity( ) {
     // set all of the pixels to white
     for ( int i = 0; i < MAX_PATROLLER_LENGTH; ++ i ) {
-        pixels[i].R = 0;
-        pixels[i].G = 255;
+        pixels[i].R = 255;
+        pixels[i].G = 0;
         pixels[i].B = 0;
         pixels[i].index = i;
     }
@@ -18,7 +18,7 @@ Patroller::Patroller( int spos ) : Entity( ) {
 
 void Patroller::updateEntity() {
     ++patrol;
-    anchor = starting_position + ( sin( patrol ) * PATROL_SPEED );
+    anchor = starting_position + ( sin( patrol * 0.01 * PATROL_SPEED ) * PATROL_DISTANCE );
 
     // update the pixel positions
     for ( int i = 0; i < MAX_PATROLLER_LENGTH; ++ i ) {

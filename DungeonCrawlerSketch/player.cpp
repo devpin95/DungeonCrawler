@@ -3,9 +3,18 @@
 Player::Player() : Entity( ) {
     // set all of the pixels to white
     for ( int i = 0; i < MAX_PLAYER_LENGTH; ++ i ) {
+      if (i == 0)
+      {
         pixels[i].R = 0;
         pixels[i].G = 255;
         pixels[i].B = 0;
+      }
+      else
+      {
+        pixels[i].R = 0;
+        pixels[i].G = 0;
+        pixels[i].B = 0;
+      }
         pixels[i].index = i;
     }
 

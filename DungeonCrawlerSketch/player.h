@@ -12,7 +12,7 @@
 // Attacking values
 #define ATTACKING_LEFT_BOUND -2
 #define ATTACKING_RIGHT_BOUND 2
-#define ATTACKING_INTERVAL 180
+#define ATTACKING_INTERVAL 20
 
 class Player : public Entity {
 public:
@@ -45,7 +45,8 @@ public:
             pixels[i].G = 0;
             pixels[i].B = 0;
         }
-
+        
+        attacking_counter = 0;
         pixels[0].G = 255;
     };
 
