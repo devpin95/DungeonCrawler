@@ -27,6 +27,8 @@ void Patroller::updateEntity() {
 }
 
 void Patroller::drawEntity( CRGB board[], const int &blen ) {
+    if ( dead ) return;
+
     for ( int i = 0; i < MAX_PATROLLER_LENGTH; ++ i ) {
         board[ pixels[i].index ] = CRGB( pixels[i].R, pixels[i].G, pixels[i].B );
     }

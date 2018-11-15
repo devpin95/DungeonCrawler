@@ -20,6 +20,7 @@ public:
 
     // appearance
     Pixel pixels[MAX_PATROLLER_LENGTH];
+    bool dead = false;
 
     // starting position
     int starting_position;
