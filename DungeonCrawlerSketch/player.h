@@ -13,6 +13,8 @@
 #define ATTACKING_LEFT_BOUND -2
 #define ATTACKING_RIGHT_BOUND 2
 #define ATTACKING_INTERVAL 20
+#define STARTUP_ATTACKING_INTERVAL 5
+#define SHUTDOWN_ATTACKING_INTERVAL 10
 
 class Player : public Entity {
 public:
@@ -24,40 +26,67 @@ public:
     bool isAttacking( void ) const { return attacking; };
 
     void startAttack() {
+        starting_attack = true;
+
+        if ( attacking ) {
+            attacking_counter = 0;
+            starting_attack = false;
+            return;
+        }
+
+        stopping_attack = false;
         attacking = true;
         left_bound = ATTACKING_LEFT_BOUND;
         right_bound = ATTACKING_RIGHT_BOUND;
 
-        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
-            pixels[i].R = 0;
-            pixels[i].G = 0;
-            pixels[i].B = 255;
-        }
+        // set the single pixel to blue
+        pixels[i].R = 0;
+        pixels[i].G = 0;
+        pixels[0].B = 255;
+
+//        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
+//            pixels[i].R = 0;
+//            pixels[i].G = 0;
+//            pixels[i].B = 255;
+//        }
     };
 
     void stopAttack() {
+        stopping_attack = true;
         attacking = false;
+        starting_attack = false;
         left_bound = ROAMING_LEFT_BOUND;
         right_bound = ROAMING_RIGHT_BOUND;
 
-        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
-            pixels[i].R = 0;
-            pixels[i].G = 0;
-            pixels[i].B = 0;
-        }
-        
+//        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
+//            pixels[i].R = 0;
+//            pixels[i].G = 0;
+//            pixels[i].B = 0;
+//        }
+
         attacking_counter = 0;
-        pixels[0].G = 255;
+        pixels[0].R = 0;
+        pixels[0].G = 0;
+        pixels[0].B = 0;
     };
 
     // appearance
     Pixel pixels[MAX_PLAYER_LENGTH];
+    bool dead = false;
 
     // actions
     bool attacking = false;
+    bool starting_attack = false;
+    bool stopping_attack = false;
+
+    // movement contitions
+    bool stuck_left = false;
+    bool stuck_right = false;
 
     // counters
     int attacking_counter = 0;
+    int attack_startup_counter = 0;
+    int attack_shutdown_counter = 0;
 };
 
 
