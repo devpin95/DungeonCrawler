@@ -38,7 +38,11 @@ void Player::updateEntity() {
         // do the startup attack animation
         ++attack_startup_counter;
 
+<<<<<<< HEAD
         if ( attack_startup_counter < STARTUP_ATTACKING_INTERVAL ) {
+=======
+        else if ( attack_startup_counter < STARTUP_ATTACKING_INTERVAL ) {
+>>>>>>> master
             pixels[1].B += 85;
             pixels[2].B += 85;
         }
@@ -100,7 +104,11 @@ void Player::drawEntity( CRGB board[], const int &blen ) {
         // check if the pixel is black
         if ( pixels[i].R == 0 && pixels[i].G == 0 && pixels[i].B == 0 ) {
             // if it is, skip it
+<<<<<<< HEAD
             continue;
+=======
+            continue
+>>>>>>> master
         }
         board[ pixels[i].index ] = CRGB( pixels[i].R, pixels[i].G, pixels[i].B );
     }
