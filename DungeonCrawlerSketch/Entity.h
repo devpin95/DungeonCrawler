@@ -23,7 +23,7 @@ public:
     // functions
     virtual void updateEntity() = 0;
     virtual void drawEntity( CRGB board[], const int &blen ) = 0;
-protected:
+
     double speed = 0;
     double anchor = 0;
     int left_bound = 0;

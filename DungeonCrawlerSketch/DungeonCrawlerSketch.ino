@@ -102,7 +102,7 @@ void loop() {
     player.updateEntity();
 
     // draw all entities
-    lava.drawEntity();
+    lava.drawEntity( board, NUMLEDS );
     patroller.drawEntity( board, NUMLEDS );
     player.drawEntity( board, NUMLEDS );
 

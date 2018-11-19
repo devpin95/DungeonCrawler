@@ -3,7 +3,7 @@
 
 #define MAX_LAVA_LENGTH 10
 
-#define ATTACKING_INTERVAL 120
+#define LAVA_ATTACKING_INTERVAL 120
 
 #include <FastLED.h>
 #include "Entity.h"

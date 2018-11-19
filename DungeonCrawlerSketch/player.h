@@ -40,8 +40,8 @@ public:
         right_bound = ATTACKING_RIGHT_BOUND;
 
         // set the single pixel to blue
-        pixels[i].R = 0;
-        pixels[i].G = 0;
+        pixels[0].R = 0;
+        pixels[0].G = 0;
         pixels[0].B = 255;
 
 //        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {

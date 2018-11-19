@@ -18,10 +18,10 @@ Lava::Lava( int spos ) : Entity( ) {
 void Lava::updateEntity() {
     ++attacking_counter;
 
-    if ( !attacking && attacking_counter == ATTACKING_INTERVAL ) {
+    if ( !attacking && attacking_counter == LAVA_ATTACKING_INTERVAL ) {
         startAttack();
     }
-    if ( attacking && attacking_counter == ATTACKING_INTERVAL ) {
+    if ( attacking && attacking_counter == LAVA_ATTACKING_INTERVAL ) {
         stopAttack();
     }
 }
