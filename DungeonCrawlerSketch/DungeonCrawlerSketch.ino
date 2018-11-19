@@ -50,11 +50,12 @@ void loop() {
     }
     else
     {
-        player.setSpd(map(AcX, -20000, 20000, -3, 4));
+        AcY += 2000;
+        player.setSpd(map(AcY, -15000, 15000, -3, 4));
     }
 
     //check for attack
-    if (abs(GyY) > 20000 || abs(GyZ) > 20000)
+    if (abs(GyX) > 30000 || abs(GyY) > 30000 || abs(GyZ) > 30000)
     {
         player.startAttack();
     }
@@ -78,7 +79,8 @@ void loop() {
 
     // check for collision with enemies
     if ( player.getRightBoundIndex() >= patroller.getLeftBoundIndex()
-        && player.getLeftBoundIndex() < patroller.getRightBoundIndex() )
+        && player.getLeftBoundIndex() < patroller.getRightBoundIndex() 
+        && !patroller.dead )
     {
         if ( player.attacking ) {
             patroller.dead = true;
@@ -108,6 +110,7 @@ void loop() {
 
     //redraw the game state
     FastLED.show();
+    //FastLED.setBrightness(20);
     delay(FPS);
 }
 

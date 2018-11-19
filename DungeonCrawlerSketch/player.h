@@ -40,15 +40,15 @@ public:
         right_bound = ATTACKING_RIGHT_BOUND;
 
         // set the single pixel to blue
-        pixels[0].R = 0;
-        pixels[0].G = 0;
-        pixels[0].B = 255;
+//        pixels[0].R = 0;
+//        pixels[0].G = 0;
+//        pixels[0].B = 255;
 
-//        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
-//            pixels[i].R = 0;
-//            pixels[i].G = 0;
-//            pixels[i].B = 255;
-//        }
+        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
+            pixels[i].R = 0;
+            pixels[i].G = 0;
+            pixels[i].B = 255;
+        }
     };
 
     void stopAttack() {
@@ -58,15 +58,15 @@ public:
         left_bound = ROAMING_LEFT_BOUND;
         right_bound = ROAMING_RIGHT_BOUND;
 
-//        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
-//            pixels[i].R = 0;
-//            pixels[i].G = 0;
-//            pixels[i].B = 0;
-//        }
+        for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
+            pixels[i].R = 0;
+            pixels[i].G = 0;
+            pixels[i].B = 0;
+        }
 
         attacking_counter = 0;
         pixels[0].R = 0;
-        pixels[0].G = 0;
+        pixels[0].G = 255;
         pixels[0].B = 0;
     };
 

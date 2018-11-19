@@ -5,6 +5,8 @@
 
 #define LAVA_ATTACKING_INTERVAL 120
 
+#define LAVA_SPEED 20
+
 #include <FastLED.h>
 #include "Entity.h"
 
@@ -18,7 +20,7 @@ public:
         attacking = true;
         for ( int i = 0; i < MAX_LAVA_LENGTH; ++i ) {
             pixels[i].R = 255;
-            pixels[i].G = 140;
+            pixels[i].G = 69;
             pixels[i].B = 0;
         }
     };
@@ -26,8 +28,8 @@ public:
     void stopAttack() {
         attacking = false;
         for ( int i = 0; i < MAX_LAVA_LENGTH; ++i ) {
-            pixels[i].R = 100;
-            pixels[i].G = 40;
+            pixels[i].R = 30;
+            pixels[i].G = 5;
             pixels[i].B = 0;
         }
     };

@@ -6,7 +6,7 @@ Lava::Lava( int spos ) : Entity( ) {
         pixels[i].R = 255;
         pixels[i].G = 140;
         pixels[i].B = 0;
-        pixels[i].index = i;
+        pixels[i].index = spos + i;
     }
 
     // set the anchor and boundary point
@@ -18,12 +18,21 @@ Lava::Lava( int spos ) : Entity( ) {
 void Lava::updateEntity() {
     ++attacking_counter;
 
-    if ( !attacking && attacking_counter == LAVA_ATTACKING_INTERVAL ) {
+    if ( !attacking && sin(attacking_counter * 0.001 * LAVA_SPEED) > 0.5)
+    {
+      startAttack();
+    }
+    else if (attacking && sin(attacking_counter * 0.001 * LAVA_SPEED) < 0.5)
+    {
+      stopAttack();
+    }
+
+    /*if ( !attacking && attacking_counter == LAVA_ATTACKING_INTERVAL ) {
         startAttack();
     }
     if ( attacking && attacking_counter == LAVA_ATTACKING_INTERVAL ) {
         stopAttack();
-    }
+    }*/
 }
 void Lava::drawEntity( CRGB board[], const int &blen ) {
     for ( int i = 0; i < MAX_LAVA_LENGTH; ++ i ) {
