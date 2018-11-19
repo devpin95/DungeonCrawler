@@ -47,7 +47,8 @@ void loop() {
   }
   else
   {
-    player.setSpd(map(AcX, -20000, 20000, -3, 4));
+    AcY += 2000;
+    player.setSpd(map(AcY, -15000, 15000, -3, 4));
   }
 
   //check for attack
@@ -68,6 +69,7 @@ void loop() {
 
   //redraw the game state
   FastLED.show();
+  FastLED.setBrightness(50);
   delay(FPS);
 }
 

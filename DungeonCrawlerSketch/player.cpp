@@ -42,7 +42,11 @@ void Player::updateEntity() {
 }
 
 void Player::drawEntity( CRGB board[], const int &blen ) {
-    for ( int i = 0; i < MAX_PLAYER_LENGTH; ++ i ) {
+    for ( int i = 0; i < MAX_PLAYER_LENGTH; ++ i ) 
+    {
+      if (pixels[i].G > 0)
+      {
         board[ pixels[i].index ] = CRGB( pixels[i].R, pixels[i].G, pixels[i].B );
+      }
     }
 }
