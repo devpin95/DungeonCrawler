@@ -8,7 +8,6 @@
 class Entity {
 public:
     inline Entity() = default;
-    inline void setSpd( float s ) { speed = s; };
 
     // mutators
     inline void setAnchorIndex( int index ) { anchor = index; };
