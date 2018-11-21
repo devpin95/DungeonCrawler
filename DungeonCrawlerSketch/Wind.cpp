@@ -1,11 +1,11 @@
 #include "Wind.h"
 
-Wind::Wind( const int &spos, const double &mul ) : Entity( ) {
+Wind::Wind( const int &spos, const int &mul ) : Entity( ) {
     // set all of the pixels to white
     for ( int i = 0; i < MAX_WIND_LENGTH; ++ i ) {
-        pixels[i].R = 255 - (i*10);
-        pixels[i].G = 255;
-        pixels[i].B = 255;
+        pixels[i].R = 10 - (i*1);
+        pixels[i].G = 40 - (i*4);
+        pixels[i].B = 30 - (i*3);
         pixels[i].index = spos + i;
     }
 
@@ -13,7 +13,7 @@ Wind::Wind( const int &spos, const double &mul ) : Entity( ) {
     anchor = spos;
     left_bound = WIND_LEFT_BOUND;
     right_bound = WIND_RIGHT_BOUND;
-    multiplier = mul;
+    multiplier = mul*0.5;
 };
 
 void Wind::updateEntity() {
@@ -23,15 +23,18 @@ void Wind::updateEntity() {
         int tempg = pixels[MAX_WIND_LENGTH-1].G;
         int tempb = pixels[MAX_WIND_LENGTH-1].B;
 
-        for ( int i = MAX_WIND_LENGTH; i > 0; --i ) {
+        for ( int i = MAX_WIND_LENGTH-1; i >= 0; --i ) {
             if ( i == 0 ) {
                 pixels[i].R = tempr;
                 pixels[i].G = tempg;
                 pixels[i].B = tempb;
             }
-            pixels[i].R = pixels[i-1].R;
-            pixels[i].G = pixels[i-1].G;
-            pixels[i].B = pixels[i-1].B;
+            else
+            {
+                pixels[i].R = pixels[i-1].R;
+                pixels[i].G = pixels[i-1].G;
+                pixels[i].B = pixels[i-1].B;
+            }
         }
     }
     else
@@ -46,9 +49,12 @@ void Wind::updateEntity() {
                 pixels[i].G = tempg;
                 pixels[i].B = tempb;
             }
-            pixels[i].R = pixels[i+1].R;
-            pixels[i].G = pixels[i-+1].G;
-            pixels[i].B = pixels[i-+1].B;
+            else
+            {
+                pixels[i].R = pixels[i+1].R;
+                pixels[i].G = pixels[i+1].G;
+                pixels[i].B = pixels[i+1].B;
+            }
         }
     }
 }

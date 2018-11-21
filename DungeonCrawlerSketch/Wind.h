@@ -10,7 +10,7 @@
 
 class Wind : public Entity {
 public:
-    Wind( const int &spos, const double &mul );
+    Wind( const int &spos, const int &mul );
     void updateEntity();
     void drawEntity( CRGB board[], const int &blen );
 

@@ -5,7 +5,7 @@
 
 #define LAVA_ATTACKING_INTERVAL 120
 
-#define LAVA_SPEED 20
+#define LAVA_SPEED 30
 
 #include <FastLED.h>
 #include "Entity.h"

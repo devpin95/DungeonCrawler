@@ -13,6 +13,7 @@
 #define PATROL_DISTANCE 10
 
 class Enemy : public Entity {
+    public:
     Enemy( const int &spos );
     void updateEntity();
     void drawEntity( CRGB board[], const int &blen );
@@ -21,7 +22,7 @@ class Enemy : public Entity {
     Pixel pixels[MAX_ENEMY_LENGTH];
     bool dead = false;
 
-    const int enemy_speed = -1;
+    int enemy_speed = -1;
 };
 
 

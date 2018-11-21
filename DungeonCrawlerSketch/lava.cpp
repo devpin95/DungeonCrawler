@@ -4,7 +4,7 @@ Lava::Lava( int spos ) : Entity( ) {
     // set all of the pixels to white
     for ( int i = 0; i < MAX_LAVA_LENGTH; ++ i ) {
         pixels[i].R = 255;
-        pixels[i].G = 140;
+        pixels[i].G = 69;
         pixels[i].B = 0;
         pixels[i].index = spos + i;
     }
