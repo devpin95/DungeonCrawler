@@ -13,10 +13,10 @@
 
 // Global variables
 Player player;
-/*Patroller patroller[4] = { Patroller(40), Patroller(80), Patroller(160), Patroller(220) };
-Lava lava[2] = { Lava(175), Lava(125) };
-Enemy enemy[3] = { Enemy(280), Enemy(260), Enemy(240) };
-Wind wind[2] = { Wind( 50, 1 ), Wind(60, 1) };*/
+//Patroller patroller[4] = { Patroller(40), Patroller(80), Patroller(160), Patroller(220) };
+//Lava lava[2] = { Lava(175), Lava(125) };
+//Enemy enemy[3] = { Enemy(280), Enemy(260), Enemy(240) };
+//Wind wind[2] = { Wind( 50, 1 ), Wind(60, 1) };
 
 //Global Vectors
 Vector<Enemy> enemy;
@@ -33,7 +33,6 @@ bool levelCompleteArray[10] = { false };//ten levels (check if they are complete
 const size_t bufferSize = 6*JSON_ARRAY_SIZE(1) + 3*JSON_ARRAY_SIZE(2) + 3*JSON_OBJECT_SIZE(1) + 3*JSON_OBJECT_SIZE(2) + 3*JSON_OBJECT_SIZE(3) + 2*JSON_OBJECT_SIZE(5);
 DynamicJsonBuffer jsonBuffer(bufferSize);
 JsonObject& root = jsonBuffer.parseObject(json);
-
 
 #include "utilityFunctions.h"
 
@@ -57,16 +56,19 @@ void setup() {
     Wire.write(0x6B);  // PWR_MGMT_1 register
     Wire.write(0);     // set to zero (wakes up the MPU-6050)
     Wire.endTransmission(true);
-    //Serial.begin(9600);
+    Serial.begin(9600);
 
     //JSON Levels Info
-    //root = jsonBuffer.parseObject(json);
+    if (!root.success())
+    {
+      Serial.println("FAIL");
+    }
 }
 
 
 void loop() {
     FastLED.clear();
-    
+
     // put your main code here, to run repeatedly:
     for (int levelNum = 0; levelNum < 10; ++levelNum)
     {
@@ -236,12 +238,12 @@ void getInput()
   GyX=Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-  Serial.print("AcX = "); Serial.print(AcX);
+  /*Serial.print("AcX = "); Serial.print(AcX);
   Serial.print(" | AcY = "); Serial.print(AcY);
   Serial.print(" | AcZ = "); Serial.print(AcZ);
   Serial.print(" | GyX = "); Serial.print(GyX);
   Serial.print(" | GyY = "); Serial.print(GyY);
-  Serial.print(" | GyZ = "); Serial.println(GyZ);
+  Serial.print(" | GyZ = "); Serial.println(GyZ);*/
   
   //Serial.println(map(AcX, -20000, 20000, -3, 4));
 }
