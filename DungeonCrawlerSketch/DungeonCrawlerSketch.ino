@@ -1,5 +1,5 @@
 #include <ArduinoJson.h>
-#include <Vector.h>
+//#include <Vector.h>
 
 #include <FastLED.h>
 #include <Wire.h>
@@ -10,6 +10,7 @@
 #include "Lava.h"
 #include "Enemy.h"
 #include "Wind.h"
+#include "levelInfo.h"
 
 // Global variables
 Player player;
@@ -18,21 +19,28 @@ Player player;
 //Enemy enemy[3] = { Enemy(280), Enemy(260), Enemy(240) };
 //Wind wind[2] = { Wind( 50, 1 ), Wind(60, 1) };
 
+//Entity Pools
+Enemy enemy[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
+Patroller patroller[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
+Lava lava[10] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
+Wind wind[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
+//Enemy enemyPool[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
+//Patroller patrollerPool[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
+//Lava lavaPool[10] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
+//Wind windPool[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
+
+
+
 //Global Vectors
-Vector<Enemy> enemy;
-Vector<Patroller> patroller;
-Vector<Lava> lava;
-Vector<Wind> wind;
+//Vector<Enemy> enemy;
+//Vector<Patroller> patroller;
+//Vector<Lava> lava;
+//Vector<Wind> wind;
 
 
 //Level Check
-bool levelCompleteArray[10] = { false };//ten levels (check if they are complete)
+bool levelCompleteArray[10] = { false, false, false, false, false, false, false, false, false, false };//ten levels (check if they are complete)
 
-
-//JSON Stuff
-const size_t bufferSize = 6*JSON_ARRAY_SIZE(1) + 3*JSON_ARRAY_SIZE(2) + 3*JSON_OBJECT_SIZE(1) + 3*JSON_OBJECT_SIZE(2) + 3*JSON_OBJECT_SIZE(3) + 2*JSON_OBJECT_SIZE(5);
-DynamicJsonBuffer jsonBuffer(bufferSize);
-JsonObject& root = jsonBuffer.parseObject(json);
 
 #include "utilityFunctions.h"
 
@@ -59,19 +67,19 @@ void setup() {
     Serial.begin(9600);
 
     //JSON Levels Info
-    if (!root.success())
-    {
-      Serial.println("FAIL");
-    }
+//    if (!root.success())
+//    {
+//      Serial.println("FAIL");
+//    }
 }
 
 
 void loop() {
-    FastLED.clear();
+    //Serial.println("LOOP");
 
     // put your main code here, to run repeatedly:
-    for (int levelNum = 0; levelNum < 10; ++levelNum)
-    {
+    for (int levelNum = 0; levelNum < 2; ++levelNum)
+    {      
       while (levelCompleteArray[levelNum] == false)
       {
         setupLevel(levelNum);//set up the level
@@ -121,7 +129,7 @@ void loop() {
 
 
             //COLLISIONS
-            for (int i = 0; i < 3; ++i)//ENEMIES
+            for (int i = 0; i < levels[levelNum].numEnemies; ++i)//ENEMIES
             {
                 if ( player.getRightBoundIndex() >= enemy[i].getLeftBoundIndex()
                      && !enemy[i].dead )
@@ -133,7 +141,7 @@ void loop() {
                     }
                 }
             }
-            for (int i = 0; i < 4; ++i)//PATROLLERS
+            for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLERS
             {
                 if ( player.getRightBoundIndex() >= patroller[i].getLeftBoundIndex()
                      && player.getLeftBoundIndex() < patroller[i].getRightBoundIndex()
@@ -146,7 +154,7 @@ void loop() {
                     }
                 }
             }
-            for (int i = 0; i < 2; ++i)//LAVA
+            for (int i = 0; i < levels[levelNum].numLava; ++i)//LAVA
             {
                 if ( player.getRightBoundIndex() >= lava[i].getLeftBoundIndex()
                      && player.getLeftBoundIndex() < lava[i].getRightBoundIndex() )
@@ -157,7 +165,7 @@ void loop() {
                 }
                 //check for if enemies are within lava bounds
             }
-            for (int i = 0; i < 4; ++i)//WIND
+            for (int i = 0; i < levels[levelNum].numWind; ++i)//WIND
             {
                 if ( player.getRightBoundIndex() >= wind[i].getLeftBoundIndex()
                      && player.getLeftBoundIndex() < wind[i].getRightBoundIndex() )
@@ -171,20 +179,20 @@ void loop() {
 
             //UPDATE ENTITIES
             //environment
-            for (int i = 0; i < 2; ++i)//LAVA
+            for (int i = 0; i < levels[levelNum].numLava; ++i)//LAVA
             {
                 lava[i].updateEntity();
             }
-            for (int i = 0; i < 2; ++i)//WIND
+            for (int i = 0; i < levels[levelNum].numWind; ++i)//WIND
             {
                 wind[i].updateEntity();
             }
             //enemies
-            for (int i = 0; i < 3; ++i)//ENEMY
+            for (int i = 0; i < levels[levelNum].numEnemies; ++i)//ENEMY
             {
                 enemy[i].updateEntity();
             }
-            for (int i = 0; i < 4; ++i)//PATROLLER
+            for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLER
             {
                 patroller[i].updateEntity();
             }
@@ -194,20 +202,20 @@ void loop() {
 
             //DRAW ALL ENTITIES
             //environment
-            for (int i = 0; i < 2; ++i)//LAVA
+            for (int i = 0; i < levels[levelNum].numLava; ++i)//LAVA
             {
                 lava[i].drawEntity( board, NUMLEDS );
             }
-            for (int i = 0; i < 2; ++i)//WIND
+            for (int i = 0; i < levels[levelNum].numWind; ++i)//WIND
             {
                 wind[i].drawEntity( board, NUMLEDS );
             }
             //enemies
-            for (int i = 0; i < 4; ++i)//PATROLLER
+            for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLER
             {
                 patroller[i].drawEntity( board, NUMLEDS );
             }
-            for (int i = 0; i < 3; ++i)//ENEMY
+            for (int i = 0; i < levels[levelNum].numEnemies; ++i)//ENEMY
             {
                 enemy[i].drawEntity( board, NUMLEDS );
             }
@@ -220,7 +228,7 @@ void loop() {
             delay(FPS);
         }
 
-        delay(500);//delay for level setup
+        //delay(500);//delay for level setup
       }
     }
 }
@@ -238,12 +246,12 @@ void getInput()
   GyX=Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-  /*Serial.print("AcX = "); Serial.print(AcX);
-  Serial.print(" | AcY = "); Serial.print(AcY);
-  Serial.print(" | AcZ = "); Serial.print(AcZ);
-  Serial.print(" | GyX = "); Serial.print(GyX);
-  Serial.print(" | GyY = "); Serial.print(GyY);
-  Serial.print(" | GyZ = "); Serial.println(GyZ);*/
+//  Serial.print("AcX = "); Serial.print(AcX);
+//  Serial.print(" | AcY = "); Serial.print(AcY);
+//  Serial.print(" | AcZ = "); Serial.print(AcZ);
+//  Serial.print(" | GyX = "); Serial.print(GyX);
+//  Serial.print(" | GyY = "); Serial.print(GyY);
+//  Serial.print(" | GyZ = "); Serial.println(GyZ);
   
   //Serial.println(map(AcX, -20000, 20000, -3, 4));
 }
