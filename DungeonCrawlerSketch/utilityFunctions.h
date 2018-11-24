@@ -9,12 +9,12 @@
 
 
 void setupLevel(int levelNum)
-{    
+{
     Serial.print("SETUP LEVEL: ");
     Serial.println(levelNum);
     Serial.print("NUM ENEMIES: ");
     Serial.println(levels[levelNum].numEnemies);
-    
+
     //PLAYER POSITION
     player.dead = false;
     player.anchor = levels[levelNum].playerPos;
@@ -24,15 +24,18 @@ void setupLevel(int levelNum)
     {
       enemy[i].dead = false;
       enemy[i].anchor = levels[levelNum].enemyPos[i];
+      enemy[i].delay = levels[levelNum].enemyDelay[i]
     }
     for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLERS
     {
       patroller[i].dead = false;
       patroller[i].starting_position = levels[levelNum].patrollerPos[i];
+      partoller[i].patrol = levels[levelNum].patrollerOffset[i]
     }
     for (int i = 0; i < levels[levelNum].numLava; ++i)//LAVA
     {
       lava[i].anchor = levels[levelNum].lavaPos[i];
+      lava[i].setLength(levels[levelNum].lavaLength[i]);
     }
     for (int i = 0; i < levels[levelNum].numWind; ++i)//WIND
     {
@@ -41,7 +44,7 @@ void setupLevel(int levelNum)
     }
 
 
-    
+
 //  char json[] = "{\"num\":2,\"levels\":[{\"ppos\":0,\"Enemies\":{\"num\":1,\"pos\":[250],\"delay\":[0]},\"Patrollers\":{\"num\":0},\"Lava\":{\"num\":0},\"Wind\":{\"num\":0}},{\"ppos\\\":20,\"Enemies\\\":{\"num\\\":1,\"pos\":[250],\"delay\":[0]},\"Patrollers\":{\"num\":1,\"pos\":[150]},\"Lava\":{\"num\":1,\"pos\":[150]},\"Wind\":{\"num\":2,\"pos\":[30,40],\"mul\":[1,1]}}]}";
 //
 //  //JSON Stuff
@@ -52,9 +55,9 @@ void setupLevel(int levelNum)
 //    {
 //      Serial.println("FAIL");
 //    }
-  
+
 //   int temp, temp2;
-    
+
     //clear all vectors
 //    enemy.clear();
 //    patroller.clear();
