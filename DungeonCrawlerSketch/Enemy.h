@@ -21,6 +21,10 @@ class Enemy : public Entity {
     // appearance
     Pixel pixels[MAX_ENEMY_LENGTH];
     bool dead = false;
+    bool sleeping = true;
+
+    int sleep_delay = 0;
+    int sleep_counter = 0;
 
     int enemy_speed = -1;
 };

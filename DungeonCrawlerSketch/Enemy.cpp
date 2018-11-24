@@ -16,7 +16,15 @@ Enemy::Enemy( const int &spos ) : Entity() {
 }
 
 void Enemy::updateEntity() {
-    anchor += enemy_speed;
+    ++sleep_counter;
+
+    if ( sleep_counter == sleep_delay ) {
+        sleeping = false;
+    }
+
+    if ( !dead && !sleeping ) {
+        anchor += enemy_speed;
+    }
 
     // update the pixel positions
     for ( int i = 0; i < MAX_ENEMY_LENGTH; ++ i ) {
@@ -25,7 +33,7 @@ void Enemy::updateEntity() {
 }
 
 void Enemy::drawEntity( CRGB board[], const int &blen ) {
-    if ( dead ) return;
+    if ( dead || sleeping ) return;
 
     for ( int i = 0; i < MAX_ENEMY_LENGTH; ++ i ) {
         board[ pixels[i].index ] = CRGB( pixels[i].R, pixels[i].G, pixels[i].B );
