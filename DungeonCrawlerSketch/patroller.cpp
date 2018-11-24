@@ -1,6 +1,6 @@
 #include "patroller.h"
 
-Patroller::Patroller( int spos ) : Entity( ) {
+Patroller::Patroller( const int &spos ) : Entity( ) {
     // set all of the pixels to white
     for ( int i = 0; i < MAX_PATROLLER_LENGTH; ++ i ) {
         pixels[i].R = 255;

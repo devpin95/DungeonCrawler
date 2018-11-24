@@ -14,7 +14,8 @@
 
 class Patroller : public Entity {
 public:
-    Patroller( int spos );
+    Patroller( const int &spos );
+    void setOffset( const int &off ) { patrol += off; };
     void updateEntity();
     void drawEntity( CRGB board[], const int &blen );
 
