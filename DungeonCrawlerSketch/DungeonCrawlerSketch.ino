@@ -1,5 +1,4 @@
-#include <ArduinoJson.h>
-//#include <Vector.h>
+//#include <ArduinoJson.h>
 
 #include <FastLED.h>
 #include <Wire.h>
@@ -24,18 +23,6 @@ Enemy enemy[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), 
 Patroller patroller[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
 Lava lava[10] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
 Wind wind[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
-//Enemy enemyPool[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
-//Patroller patrollerPool[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
-//Lava lavaPool[10] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
-//Wind windPool[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
-
-
-
-//Global Vectors
-//Vector<Enemy> enemy;
-//Vector<Patroller> patroller;
-//Vector<Lava> lava;
-//Vector<Wind> wind;
 
 
 //Level Check
@@ -65,12 +52,6 @@ void setup() {
     Wire.write(0);     // set to zero (wakes up the MPU-6050)
     Wire.endTransmission(true);
     Serial.begin(9600);
-
-    //JSON Levels Info
-//    if (!root.success())
-//    {
-//      Serial.println("FAIL");
-//    }
 }
 
 
@@ -78,8 +59,10 @@ void loop() {
     //Serial.println("LOOP");
 
     // put your main code here, to run repeatedly:
-    for (int levelNum = 0; levelNum < 2; ++levelNum)
+    for (int levelNum = 0; levelNum < NUMLEVELS; ++levelNum)
     {      
+      //Serial.println(levelNum);
+      
       while (levelCompleteArray[levelNum] == false)
       {
         setupLevel(levelNum);//set up the level
@@ -114,7 +97,6 @@ void loop() {
             {
                 player.stuck_right = true;
                 player.setAnchorIndex( NUMLEDS - player.getRightBound() );
-                levelCompleteArray[levelNum] = true;//got to the end
             }
             else if ( player.getLeftBoundIndex() < 0 && player.speed < 0 )//check beginning of board
             {
@@ -125,6 +107,12 @@ void loop() {
             {
                 player.stuck_right = false;
                 player.stuck_left = false;
+            }
+
+            // check for if player made it to end of the board (WIN)
+            if ( player.anchor > 290)
+            {
+                levelCompleteArray[levelNum] = true;//got to the end (LEVEL COMPLETE)            
             }
 
 
@@ -228,7 +216,7 @@ void loop() {
             delay(FPS);
         }
 
-        //delay(500);//delay for level setup
+        delay(500);//delay for level setup. ADD IN COOL RESET EFFECT
       }
     }
 }

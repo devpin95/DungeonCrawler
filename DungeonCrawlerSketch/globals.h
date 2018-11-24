@@ -3,6 +3,7 @@
 
 // Board
 int const NUMLEDS = 300;
+int const NUMLEVELS = 3;
 int FPS = 1000/60;
 
 #endif //DUNGEONCRAWLER_GLOBALS_H
