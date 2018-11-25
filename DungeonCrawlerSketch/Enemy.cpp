@@ -18,7 +18,7 @@ Enemy::Enemy( const int &spos ) : Entity() {
 void Enemy::updateEntity() {
     ++sleep_counter;
 
-    if ( sleep_counter == sleep_delay ) {
+    if ( sleep_counter >= sleep_delay && sleeping == true) {
         sleeping = false;
     }
 
