@@ -222,10 +222,10 @@ void loop() {
                 }
 
                 if ( death_left_runner != 0 ) {
-                    --death_left_runner
+                    --death_left_runner;
                 }
                 if ( death_right_runner != NUMLEDS ) {
-                    ++death_left_runner
+                    ++death_left_runner;
                 }
 
                 board[ death_left_runner ] = CRGB( 255, 255, 255 );
