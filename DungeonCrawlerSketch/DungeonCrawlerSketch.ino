@@ -26,7 +26,7 @@ Wind wind[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,
 
 
 //Level Check
-bool levelCompleteArray[10] = { false, false, false, false, false, false, false, false, false, false };//ten levels (check if they are complete)
+bool levelCompleteArray[NUMLEVELS] = { false };//ten levels (check if they are complete)
 
 
 #include "utilityFunctions.h"
@@ -241,26 +241,41 @@ void loop() {
         {
           death_left_runner = player.anchor;
           death_right_runner = player.anchor;
+
+          for (int x = 0; x < 20; ++x)
+          {
+            if (death_left_runner > 0)
+            { death_left_runner--; }
+
+            if (death_right_runner < NUMLEDS)
+            { death_right_runner++; }
+            
+            board[ death_left_runner ] = CRGB( 0, 80-4*x, 0 );
+            board[ death_right_runner ] = CRGB( 0, 80-4*x, 0 );
           
-           while (player.dead) 
-           {
-                if ( death_left_runner == 0 && death_right_runner == NUMLEDS ) 
-                {
-                    break;
-                }
-
-                if ( death_left_runner != 1 ) {
-                    --death_left_runner;
-                }
-                if ( death_right_runner != NUMLEDS ) {
-                    ++death_right_runner;
-                }
-
-                board[ death_left_runner ] = CRGB( 20, 20, 20 );
-                board[ death_right_runner ] = CRGB( 20, 20, 20 );
-                FastLED.show();
-                delay( DEATH_FPS );
-            }
+              
+            FastLED.show();
+            delay( DEATH_FPS );
+          }
+//           while (death_left_runner > 1 || death_right_runner < NUMLEDS-1) 
+//           {
+//                if ( death_left_runner == 0 && death_right_runner == NUMLEDS ) 
+//                {
+//                    break;
+//                }
+//
+//                if ( death_left_runner != 1 ) {
+//                    --death_left_runner;
+//                }
+//                if ( death_right_runner != NUMLEDS ) {
+//                    ++death_right_runner;
+//                }
+//
+//                board[ death_left_runner ] = CRGB( 20, 20, 20 );
+//                board[ death_right_runner ] = CRGB( 20, 20, 20 );
+//                FastLED.show();
+//                delay( DEATH_FPS );
+//            }
         }
         else
         {
@@ -269,6 +284,12 @@ void loop() {
 
         delay(200);//delay for level setup. ADD IN COOL RESET EFFECT
       }
+    }
+
+    //RESET to play all levels again
+    for (int i = 0; i < NUMLEVELS; ++i)
+    {
+      levelCompleteArray[i] = false;
     }
 }
 

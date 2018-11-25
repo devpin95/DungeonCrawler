@@ -9,7 +9,7 @@
 #define RIGHT_BOUND 0
 
 // patrol pattern
-#define PATROL_SPEED 2
+#define PATROL_SPEED 3
 #define PATROL_DISTANCE 10
 
 class Patroller : public Entity {
