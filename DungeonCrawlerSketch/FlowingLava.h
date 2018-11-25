@@ -5,7 +5,7 @@
 //#include "globals.h"
 #include "Entity.h"
 
-#define LAVA_FLOW_RATE 120
+#define LAVA_FLOW_RATE 30
 
 class FlowingLava : public Entity {
 public:
@@ -15,7 +15,7 @@ public:
 
     Pixel p;
 
-    int flowhead = 0;
+    int flowhead = 1;
     int counter = 0;
 };
 

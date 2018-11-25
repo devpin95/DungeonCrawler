@@ -1,8 +1,6 @@
 #include "FlowingLava.h"
 
 FlowingLava::FlowingLava() {
-    anchor = 0;
-    flowhead = 1;
     p.R = 255;
     p.G = 69;
     p.B = 0;
