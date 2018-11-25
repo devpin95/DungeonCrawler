@@ -51,7 +51,7 @@ void setup() {
     Wire.write(0x6B);  // PWR_MGMT_1 register
     Wire.write(0);     // set to zero (wakes up the MPU-6050)
     Wire.endTransmission(true);
-    Serial.begin(9600);
+    //Serial.begin(9600);
 }
 
 
@@ -209,35 +209,65 @@ void loop() {
             }
 
             player.drawEntity( board, NUMLEDS );//PLAYER
-            death_left_runner = player.getAnchorIndex();
-            death_right_runner = player.getAnchorIndex();
+//            death_left_runner = player.getAnchorIndex();
+//            death_right_runner = player.getAnchorIndex();
 
             //redraw the game state
             FastLED.show();
 
             // if the player is dead, do the animation
-            while ( player.dead ) {
+            /*while ( player.dead ) {
                 if ( death_left_runner == 0 && death_right_runner == NUMLEDS ) {
                     break;
                 }
 
                 if ( death_left_runner != 0 ) {
-                    --death_left_runner
+                    --death_left_runner;
                 }
                 if ( death_right_runner != NUMLEDS ) {
-                    ++death_left_runner
+                    ++death_left_runner;
                 }
 
                 board[ death_left_runner ] = CRGB( 255, 255, 255 );
                 board[ death_right_runner ] = CRGB( 255, 255, 255 );
                 FastLED.show();
                 delay( DEATH_FPS );
-            }
+            }*/
 
             delay(FPS);
         }
 
-        delay(500);//delay for level setup. ADD IN COOL RESET EFFECT
+        if (player.dead)
+        {
+          death_left_runner = player.anchor;
+          death_right_runner = player.anchor;
+          
+           while (player.dead) 
+           {
+                if ( death_left_runner == 0 && death_right_runner == NUMLEDS ) 
+                {
+                    break;
+                }
+
+                if ( death_left_runner != 1 ) {
+                    --death_left_runner;
+                }
+                if ( death_right_runner != NUMLEDS ) {
+                    ++death_right_runner;
+                }
+
+                board[ death_left_runner ] = CRGB( 20, 20, 20 );
+                board[ death_right_runner ] = CRGB( 20, 20, 20 );
+                FastLED.show();
+                delay( DEATH_FPS );
+            }
+        }
+        else
+        {
+          //win animation maybe?
+        }
+
+        delay(200);//delay for level setup. ADD IN COOL RESET EFFECT
       }
     }
 }

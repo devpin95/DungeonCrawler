@@ -1,6 +1,6 @@
 #include "lava.h"
 
-Lava::Lava( const int &spos, ) : Entity( ) {
+Lava::Lava( const int &spos ) : Entity( ) {
     pixels = new Pixel[lava_length];
 
     for ( int i = 0; i < lava_length; ++ i ) {
