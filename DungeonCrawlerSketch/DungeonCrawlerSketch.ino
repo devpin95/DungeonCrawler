@@ -9,6 +9,7 @@
 #include "Lava.h"
 #include "Enemy.h"
 #include "Wind.h"
+#include "FlowingLava.h"
 #include "levelInfo.h"
 
 // Global variables
@@ -23,7 +24,7 @@ Enemy enemy[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), 
 Patroller patroller[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
 Lava lava[10] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
 Wind wind[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
-
+FlowingLava flowinglava;
 
 //Level Check
 bool levelCompleteArray[NUMLEVELS] = { false };//ten levels (check if they are complete)
@@ -188,6 +189,10 @@ void loop() {
             for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLER
             {
                 patroller[i].updateEntity();
+            }
+
+            if ( levels[levelNum].hasLavaFlow ) {
+                flowinglava.updateEntity();
             }
 
             player.updateEntity();//PLAYER
