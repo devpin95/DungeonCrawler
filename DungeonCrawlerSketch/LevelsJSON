@@ -3,7 +3,8 @@
 	"levels" : 
 	[
 		{
-			"ppos" : 0,
+			"ppos" : 10,
+			"hasLavaFlow" : true,
 			"Enemies" : 
 			{
 				"num" : 1,
@@ -29,6 +30,7 @@
 
 		{
 			"ppos" : 20,
+			"hasLavaFlow" : false,
 			"Enemies" : 
 			{
 				"num" : 1,
@@ -61,6 +63,7 @@
 
 		{
 			"ppos" : 20,
+			"hasLavaFlow" : false,
 			"Enemies" : 
 			{
 				"num" : 5,

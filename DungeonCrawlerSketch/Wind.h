@@ -4,7 +4,7 @@
 #include <FastLED.h>
 #include "Entity.h"
 
-#define MAX_WIND_LENGTH 10
+#define MAX_WIND_LENGTH 20
 #define WIND_LEFT_BOUND 0
 #define WIND_RIGHT_BOUND 10
 
