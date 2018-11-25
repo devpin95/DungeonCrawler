@@ -22,7 +22,7 @@ Player player;
 //Entity Pools
 Enemy enemy[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
 Patroller patroller[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
-Lava lava[10] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
+Lava lava[5] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
 Wind wind[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
 FlowingLava flowinglava;
 
@@ -83,12 +83,21 @@ void loop() {
             }
             else
             {
-                AcY += 6000;//offset of gyro not being completely level
-                player.speed = map(AcY, -15000, 15000, -2, 2) * 0.5;
+//                AcY += 6000;//offset of gyro not being completely level
+//                player.speed = map(AcY, -15000, 15000, -2, 2) * 0.5;
+                
 
                 if (AcY > 3000)
                 {
-                  
+                  player.speed = 0.2;
+                }
+                if (AcY > 8000)
+                {
+                  player.speed = 0.8;
+                }
+                if (AcY > 12000)
+                {
+                  player.speed = 1.5;
                 }
             }
 
