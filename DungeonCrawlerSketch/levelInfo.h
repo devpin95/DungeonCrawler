@@ -34,23 +34,23 @@ struct Level
 Level levels[NUMLEVELS] =
 {
     {   // Level 1
-        0,              // player starting position
-        1, {250},       // # of enemies, starting positions
-        0, {0},         // # of patrollers, starting positions
-        0, {0}, {0},    // # of lavas, starting positions, lengths
-        0, {0}          // # of winds, starting positions
+        0,
+        1, {250}, {0},
+        0, {0}, {0},
+        0, {0}, {0},
+        0, {0}
     },
     {   // Level 2
         20,
-        1, {250},
-        1, {150},
+        1, {250}, {0},
+        1, {150}, {0},
         3, {150, 160, 170}, {10, 10, 10},
         2, {30, 40}
     },
     {   // Level 3
         20,
-        5, {100, 105, 110, 115, 120},
-        3, {150, 155, 160},
+        5, {100, 105, 110, 115, 120}, {0, 10, 20, 30, 40},
+        3, {150, 155, 160}, {0, 100, 200},
         1, {290}, {30},
         4, {30, 40, 50, 60}
     }
