@@ -4,12 +4,12 @@
 	[
 		{
 			"ppos" : 10,
-			"hasLavaFlow" : true,
+			"hasLavaFlow" : false,
 			"Enemies" : 
 			{
-				"num" : 1,
-				"pos" : [250],
-				"delay" : [0]
+				"num" : 4,
+				"pos" : [250, 250, 250, 250],
+				"delay" : [0, 50, 100, 150]
 			},
 
 			"Patrollers" :
@@ -29,68 +29,203 @@
 		},
 
 		{
-			"ppos" : 20,
+			"ppos" : 10,
 			"hasLavaFlow" : false,
 			"Enemies" : 
 			{
-				"num" : 1,
-				"pos" : [250],
-				"delay" : [0]
+				"num" : 8,
+				"pos" : [250, 250, 250, 250, 250, 250, 250, 250],
+				"delay" : [0, 5, 10, 15, 100, 105, 110, 115]
 			},
 
 			"Patrollers" :
 			{
-				"num" : 1,
-				"pos" : [150],
-				"offset" : [0]
+				"num" : 0
 			},
 
 			"Lava" :
 			{
-				"num" : 3,
-				"pos" : [150, 160, 170],
-				"length" : [10, 10, 10],
-				"delay" : [0, 0 ,0]
+				"num" : 0
+			},
+
+			"Wind" : 
+			{
+				"num" : 0
+			}
+		},
+
+		{
+			"ppos" : 10,
+			"hasLavaFlow" : false,
+			"Enemies" : 
+			{
+				"num" : 6,
+				"pos" : [200, 250, 200, 250, 200, 250],
+				"delay" : [0, 0, 50, 50, 100, 100]
+			},
+
+			"Patrollers" :
+			{
+				"num" : 2,
+				"pos" : [50, 120],
+				"offset" : [0, 100]
+			},
+
+			"Lava" :
+			{
+				"num" : 0
+			},
+
+			"Wind" : 
+			{
+				"num" : 0
+			}
+		},
+
+		{
+			"ppos" : 10,
+			"hasLavaFlow" : false,
+			"Enemies" : 
+			{
+				"num" : 2,
+				"pos" : [250, 280],
+				"delay" : [0, 0]
+			},
+
+			"Patrollers" :
+			{
+				"num" : 4,
+				"pos" : [20, 50, 150, 180],
+				"offset" : [0, 50, 100, 150]
+			},
+
+			"Lava" :
+			{
+				"num" : 0
 			},
 
 			"Wind" : 
 			{
 				"num" : 2,
-				"pos" : [30, 40],
+				"pos" : [125, 145],
 				"mul" : [1, 1]
 			}
 		},
 
 		{
-			"ppos" : 20,
-			"hasLavaFlow" : false,
+			"ppos" : 10,
+			"hasLavaFlow" : true,
 			"Enemies" : 
 			{
-				"num" : 5,
-				"pos" : [100, 105, 110, 115, 120],
-				"delay" : [0, 10, 20, 30, 40]
+				"num" : 0
 			},
 
 			"Patrollers" :
 			{
-				"num" : 3,
-				"pos" : [150, 155, 160],
-				"offset" : [0, 100, 200]
+				"num" : 0
 			},
 
 			"Lava" :
 			{
-				"num" : 2,
-				"pos" : [50, 90],
-				"length" : [30, 30],
-				"delay" : [0, 40]
+				"num" : 0
 			},
 
 			"Wind" : 
 			{
 				"num" : 4,
-				"pos" : [30, 40, 50, 60],
-				"mul" : [1, 1, -1, -1]
+				"pos" : [40, 100, 160, 220],
+				"mul" : [-1, -1, -1, -1]
+			}
+		},
+
+		{
+			"ppos" : 10,
+			"hasLavaFlow" : false,
+			"Enemies" : 
+			{
+				"num" : 0
+			},
+
+			"Patrollers" :
+			{
+				"num" : 6,
+				"pos" : [30, 80, 130, 180, 230, 280],
+				"offset" : [0, 10, 20, 30, 40, 50]
+			},
+
+			"Lava" :
+			{
+				"num" : 3,
+				"pos": [20, 120, 220],
+				"length" : [40, 40, 40],
+				"delay" : [0, 50, 100]
+			},
+
+			"Wind" : 
+			{
+				"num" : 0
+			}
+		},
+
+		{
+			"ppos" : 15,
+			"hasLavaFlow" : false,
+			"Enemies" : 
+			{
+				"num" : 9.
+				"pos" : [100, 100, 100, 220, 220, 220, 200, 200, 200],
+				"delay" : [0, 10, 20, 100, 110, 120, 150, 160, 170]
+			},
+
+			"Patrollers" :
+			{
+				"num" : 0
+			},
+
+			"Lava" :
+			{
+				"num" : 4,
+				"pos": [0, 100, 130, 160],
+				"length" : [10, 10, 30, 30],
+				"delay" : [0, 100, 100, 200]
+			},
+
+			"Wind" : 
+			{
+				"num" : 1,
+				"pos" : [110],
+				"mul" : [1]
+			}
+		},
+
+		{
+			"ppos" : 15,
+			"hasLavaFlow" : false,
+			"Enemies" : 
+			{
+				"num" : 9.
+				"pos" : [100, 100, 100, 220, 220, 220, 200, 200, 200],
+				"delay" : [0, 10, 20, 100, 110, 120, 150, 160, 170]
+			},
+
+			"Patrollers" :
+			{
+				"num" : 0
+			},
+
+			"Lava" :
+			{
+				"num" : 4,
+				"pos": [0, 100, 130, 160],
+				"length" : [10, 10, 30, 30],
+				"delay" : [0, 100, 100, 200]
+			},
+
+			"Wind" : 
+			{
+				"num" : 1,
+				"pos" : [110],
+				"mul" : [1]
 			}
 		}
 	]
