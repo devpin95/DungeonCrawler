@@ -34,6 +34,10 @@ void Lava::setLength( const int &len ) {
 void Lava::updateEntity() {
     ++attacking_counter;
 
+    if ( attacking_counter < attack_delay ) {
+        return;
+    }
+
     if ( !attacking && sin(attacking_counter * 0.001 * LAVA_SPEED) > 0.5)
     {
       startAttack();

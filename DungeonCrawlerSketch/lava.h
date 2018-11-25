@@ -41,6 +41,7 @@ public:
 
     // actions
     bool attacking = false;
+    int attack_delay = 0;
 
     // counters
     int attacking_counter = 0;
