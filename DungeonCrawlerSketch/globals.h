@@ -9,6 +9,9 @@ const int FPS = 1000/60;
 //death animation
 int death_left_runner = 0;
 int death_right_runner = 0;
-const int DEATH_FPS = 1000/20;
+const int DEATH_FPS = 1000/100;
+
+//win animation
+const int WIN_FPS = 1000/500;
 
 #endif //DUNGEONCRAWLER_GLOBALS_H

@@ -36,6 +36,7 @@ void setupLevel(int levelNum)
     {
       lava[i].anchor = levels[levelNum].lavaPos[i];
       lava[i].setLength(levels[levelNum].lavaLength[i]);
+      lava[i].attacking_counter = levels[levelNum].lavaDelay[i];
     }
     for (int i = 0; i < levels[levelNum].numWind; ++i)//WIND
     {

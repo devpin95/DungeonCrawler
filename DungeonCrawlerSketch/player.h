@@ -15,6 +15,7 @@
 #define ATTACKING_INTERVAL 20
 #define STARTUP_ATTACKING_INTERVAL 5
 #define SHUTDOWN_ATTACKING_INTERVAL 10
+#define CHARGING_INTERVAL 30
 
 class Player : public Entity {
 public:
@@ -27,6 +28,7 @@ public:
 
     void startAttack() {
         starting_attack = true;
+        charging = true;
 
         if ( attacking ) {
             attacking_counter = 0;
@@ -47,7 +49,7 @@ public:
         for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
             pixels[i].R = 0;
             pixels[i].G = 0;
-            pixels[i].B = 255;
+            pixels[i].B = 250;
         }
     };
 
@@ -65,9 +67,9 @@ public:
         }
 
         attacking_counter = 0;
-        pixels[0].R = 0;
-        pixels[0].G = 255;
-        pixels[0].B = 0;
+        pixels[0].R = 180;
+        pixels[0].G = 0;
+        pixels[0].B = 180;
     };
 
     // appearance
@@ -78,6 +80,7 @@ public:
     bool attacking = false;
     bool starting_attack = false;
     bool stopping_attack = false;
+    bool charging = false;
 
     // movement contitions
     bool stuck_left = false;
@@ -87,6 +90,7 @@ public:
     int attacking_counter = 0;
     int attack_startup_counter = 0;
     int attack_shutdown_counter = 0;
+    int charging_counter = 0;
 };
 
 

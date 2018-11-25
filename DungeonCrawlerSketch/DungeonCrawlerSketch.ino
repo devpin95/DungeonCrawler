@@ -82,12 +82,17 @@ void loop() {
             }
             else
             {
-                AcY += 2000;//offset of gyro not being completely level
-                player.speed = map(AcY, -15000, 15000, -1, 2);
+                AcY += 6000;//offset of gyro not being completely level
+                player.speed = map(AcY, -15000, 15000, -2, 2) * 0.5;
+
+                if (AcY > 3000)
+                {
+                  
+                }
             }
 
-            //check for player attack
-            if (abs(GyX) > 30000 || abs(GyY) > 30000 || abs(GyZ) > 30000)
+            //check for if player attacks and he is not charging
+            if ((abs(GyX) > 30000 || abs(GyY) > 30000 || abs(GyZ) > 30000) && !player.charging)
             {
                 player.startAttack();
             }
@@ -209,36 +214,18 @@ void loop() {
             }
 
             player.drawEntity( board, NUMLEDS );//PLAYER
-//            death_left_runner = player.getAnchorIndex();
-//            death_right_runner = player.getAnchorIndex();
 
             //redraw the game state
             FastLED.show();
 
-            // if the player is dead, do the animation
-            /*while ( player.dead ) {
-                if ( death_left_runner == 0 && death_right_runner == NUMLEDS ) {
-                    break;
-                }
-
-                if ( death_left_runner != 0 ) {
-                    --death_left_runner;
-                }
-                if ( death_right_runner != NUMLEDS ) {
-                    ++death_left_runner;
-                }
-
-                board[ death_left_runner ] = CRGB( 255, 255, 255 );
-                board[ death_right_runner ] = CRGB( 255, 255, 255 );
-                FastLED.show();
-                delay( DEATH_FPS );
-            }*/
-
             delay(FPS);
         }
 
+        //if the player dies, we need the death animation
         if (player.dead)
         {
+          FastLED.clear();
+          
           death_left_runner = player.anchor;
           death_right_runner = player.anchor;
 
@@ -257,29 +244,64 @@ void loop() {
             FastLED.show();
             delay( DEATH_FPS );
           }
-//           while (death_left_runner > 1 || death_right_runner < NUMLEDS-1) 
-//           {
-//                if ( death_left_runner == 0 && death_right_runner == NUMLEDS ) 
-//                {
-//                    break;
-//                }
-//
-//                if ( death_left_runner != 1 ) {
-//                    --death_left_runner;
-//                }
-//                if ( death_right_runner != NUMLEDS ) {
-//                    ++death_right_runner;
-//                }
-//
-//                board[ death_left_runner ] = CRGB( 20, 20, 20 );
-//                board[ death_right_runner ] = CRGB( 20, 20, 20 );
-//                FastLED.show();
-//                delay( DEATH_FPS );
-//            }
+
+          delay( 500 );
         }
-        else
-        {
-          //win animation maybe?
+        else//if the player is alive, we do the next level animation
+        {                   
+          if (levelNum + 1 < NUMLEVELS)//so we do the animation for levels that aren't the last level
+          {          
+              FastLED.clear();
+              //move the player back to the new starting position
+              for (int x = player.anchor; x > levels[levelNum+1].playerPos; --x)
+              {
+                //FastLED.clear();
+                                
+                board[ x ] = CRGB( 0, 250, 0 );//player
+                board[ x+1 ] = CRGB( 0, 0, 0 );
+                board[ x+2 ] = CRGB( 0, 0, 0 );
+                board[ x+3 ] = CRGB( 0, 0, 0 );
+                board[ x+4 ] = CRGB( 0, 0, 0 );
+                board[ x+5 ] = CRGB( 15, 15, 15);
+
+                FastLED.show();
+                delay(WIN_FPS);
+              }
+
+              for (int x = levels[levelNum+1].playerPos + 5; x < NUMLEDS; ++x)
+              {
+                board[ x ] = CRGB( 0, 0, 0 );
+                FastLED.show();
+                //delay(WIN_FPS/2);
+              }
+          }
+          else
+          {
+              FastLED.clear();
+              //move the player back to the new starting position of the first level
+              for (int x = player.anchor; x > levels[0].playerPos; --x)
+              {
+                //FastLED.clear();
+                                
+                board[ x ] = CRGB( 0, 250, 0 );//player
+                board[ x+1 ] = CRGB( 0, 0, 0 );
+                board[ x+2 ] = CRGB( 0, 0, 0 );
+                board[ x+3 ] = CRGB( 0, 0, 0 );
+                board[ x+4 ] = CRGB( 0, 0, 0 );
+                board[ x+5 ] = CRGB( 15, 15, 0 );
+
+                FastLED.show();
+                delay(WIN_FPS);
+              }
+
+              for (int x = levels[0].playerPos + 5; x < NUMLEDS; ++x)
+              {
+                board[ x ] = CRGB( 0, 0, 0 );
+                FastLED.show();
+                //delay(WIN_FPS/2);
+              }
+          }
+          
         }
 
         delay(200);//delay for level setup. ADD IN COOL RESET EFFECT
@@ -315,4 +337,5 @@ void getInput()
   
   //Serial.println(map(AcX, -20000, 20000, -3, 4));
 }
+
 
