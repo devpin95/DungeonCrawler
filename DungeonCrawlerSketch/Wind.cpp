@@ -17,6 +17,11 @@ Wind::Wind( const int &spos, const int &mul ) : Entity( ) {
 };
 
 void Wind::updateEntity() {
+
+    for ( int i = 0; i < MAX_WIND_LENGTH; ++i ) {
+      pixels[i].index = anchor + i;
+    }
+    
     if ( multiplier >= 0 )
     {
         int tempr = pixels[MAX_WIND_LENGTH-1].R;
