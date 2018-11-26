@@ -11,6 +11,7 @@
 #include "Wind.h"
 #include "FlowingLava.h"
 #include "levelInfo.h"
+#include "BigBoi.h"
 
 // Global variables
 Player player;
@@ -23,8 +24,9 @@ Player player;
 Enemy enemy[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
 Patroller patroller[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
 Lava lava[5] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
-Wind wind[10] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
+Wind wind[5] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
 FlowingLava flowinglava;
+BigBoi bigboi;
 
 //Level Check
 bool levelCompleteArray[NUMLEVELS] = { false };//ten levels (check if they are complete)
@@ -61,12 +63,20 @@ void loop() {
 
     // put your main code here, to run repeatedly:
     for (int levelNum = 0; levelNum < NUMLEVELS; ++levelNum)
-    {      
-      //Serial.println(levelNum);
-      
+    {            
       while (levelCompleteArray[levelNum] == false)
       {
         setupLevel(levelNum);//set up the level
+
+        //if it is the final level, set all the numbers of entities to 0
+        //this way, the boss will have control over what gets shown
+        if (levelNum == NUMLEVELS - 1)
+        {
+            levels[levelNum].numEnemies = 0;
+            levels[levelNum].numPatrollers = 0;
+            levels[levelNum].numLava = 0;
+            levels[levelNum].numWind = 0;
+        }
 
         while (!player.dead && levelCompleteArray[levelNum] == false)//check for if the player is alive and has not yet completed the level
         {
@@ -81,28 +91,45 @@ void loop() {
             {
                 player.speed = 0;
             }
-            else
+            else//PLAYER MOVEMENT
             {
 //                AcY += 6000;//offset of gyro not being completely level
 //                player.speed = map(AcY, -15000, 15000, -2, 2) * 0.5;
-                
+                int tempAcY = AcY + 1000;
+                if (tempAcY > -3000 && tempAcY < 3000)
+                {
+                  player.speed = 0;
+                }
 
-                if (AcY > 3000)
+                if (tempAcY > 3000)
                 {
                   player.speed = 0.2;
                 }
-                if (AcY > 8000)
+                if (tempAcY > 8000)
                 {
-                  player.speed = 0.8;
+                  player.speed = 0.6;
                 }
-                if (AcY > 12000)
+                if (tempAcY > 12000)
                 {
-                  player.speed = 1.5;
+                  player.speed = 1;
+                }
+
+                if (tempAcY < -3000)
+                {
+                  player.speed = -0.2;
+                }
+                if (tempAcY < -8000)
+                {
+                  player.speed = -0.6;
+                }
+                if (tempAcY < -12000)
+                {
+                  player.speed = -1;
                 }
             }
 
             //check for if player attacks and he is not charging
-            if ((abs(GyX) > 30000 || abs(GyY) > 30000 || abs(GyZ) > 30000) && !player.charging)
+            if ((abs(GyX) > 32000 || abs(GyY) > 32000 || abs(GyZ) > 32000) && !player.charging)
             {
                 player.startAttack();
             }
@@ -147,7 +174,7 @@ void loop() {
             for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLERS
             {
                 if ( player.getRightBoundIndex() >= patroller[i].getLeftBoundIndex()
-                     && player.getLeftBoundIndex() < patroller[i].getRightBoundIndex()
+                     && player.getLeftBoundIndex() <= patroller[i].getRightBoundIndex()
                      && !patroller[i].dead )
                 {
                     if ( player.attacking ) {
@@ -178,6 +205,25 @@ void loop() {
                     }
                 }
             }
+            if ( levels[levelNum].hasLavaFlow ) 
+            {
+                if (player.anchor <= flowinglava.flowhead)
+                {
+                    player.dead = true;
+                }
+            }
+            if ( levelNum == NUMLEVELS - 1 )//if it is the final level, check if the player hit the boss OR the boss killed the player
+            {
+                if (player.getRightBoundIndex() >= bigboi.getLeftBoundIndex()
+                    && player.getLeftBoundIndex() < bigboi.getRightBoundIndex() )
+                {
+                  if ( player.attacking ){
+                    bigboi.take_damage = true;
+                  } else {
+                    player.dead = true;
+                  }
+                }
+            }
 
 
             //UPDATE ENTITIES
@@ -199,9 +245,13 @@ void loop() {
             {
                 patroller[i].updateEntity();
             }
-
-            if ( levels[levelNum].hasLavaFlow ) {
+            if ( levels[levelNum].hasLavaFlow ) 
+            {
                 flowinglava.updateEntity();
+            }
+            if ( levelNum == NUMLEVELS - 1 )//if it is the final level
+            {
+                bigboi.updateEntity();
             }
 
             player.updateEntity();//PLAYER
@@ -225,6 +275,14 @@ void loop() {
             for (int i = 0; i < levels[levelNum].numEnemies; ++i)//ENEMY
             {
                 enemy[i].drawEntity( board, NUMLEDS );
+            }
+            if ( levels[levelNum].hasLavaFlow ) 
+            {
+                flowinglava.drawEntity( board, NUMLEDS );
+            }
+            if ( levelNum == NUMLEVELS - 1 )//if it is the final level
+            {
+                bigboi.drawEntity( board, NUMLEDS );
             }
 
             player.drawEntity( board, NUMLEDS );//PLAYER
@@ -263,6 +321,7 @@ void loop() {
         }
         else//if the player is alive, we do the next level animation
         {                   
+          int alpha = 15;
           if (levelNum + 1 < NUMLEVELS)//so we do the animation for levels that aren't the last level
           {          
               FastLED.clear();
@@ -276,18 +335,18 @@ void loop() {
                 board[ x+2 ] = CRGB( 0, 0, 0 );
                 board[ x+3 ] = CRGB( 0, 0, 0 );
                 board[ x+4 ] = CRGB( 0, 0, 0 );
-                board[ x+5 ] = CRGB( 15, 15, 15);
+                board[ x+5 ] = CRGB( alpha, alpha, alpha);
 
                 FastLED.show();
                 delay(WIN_FPS);
               }
 
-              for (int x = levels[levelNum+1].playerPos + 5; x < NUMLEDS; ++x)
-              {
-                board[ x ] = CRGB( 0, 0, 0 );
-                FastLED.show();
-                //delay(WIN_FPS/2);
-              }
+//              for (int x = levels[levelNum+1].playerPos + 5; x < NUMLEDS; ++x)
+//              {
+//                board[ x ] = CRGB( 0, 0, 0 );
+//                FastLED.show();
+//                //delay(WIN_FPS/2);
+//              }
           }
           else
           {
@@ -318,7 +377,7 @@ void loop() {
           
         }
 
-        delay(200);//delay for level setup. ADD IN COOL RESET EFFECT
+        //delay(200);//delay for level setup. ADD IN COOL RESET EFFECT
       }
     }
 

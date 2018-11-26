@@ -3,7 +3,7 @@
 
 // Board
 const int NUMLEDS = 300;
-const int NUMLEVELS = 3;
+const int NUMLEVELS = 10;
 const int FPS = 1000/60;
 
 //death animation

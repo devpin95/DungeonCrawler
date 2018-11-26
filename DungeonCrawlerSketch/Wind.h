@@ -6,7 +6,7 @@
 
 #define MAX_WIND_LENGTH 20
 #define WIND_LEFT_BOUND 0
-#define WIND_RIGHT_BOUND 10
+#define WIND_RIGHT_BOUND 20
 
 class Wind : public Entity {
 public:

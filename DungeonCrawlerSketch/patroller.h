@@ -10,7 +10,7 @@
 
 // patrol pattern
 #define PATROL_SPEED 3
-#define PATROL_DISTANCE 10
+#define PATROL_DISTANCE 15
 
 class Patroller : public Entity {
 public:

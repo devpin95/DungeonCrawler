@@ -8,7 +8,7 @@
 #define BIGBOI_PATROL_SPEED 2
 #define BIGBOI_PATROL_DISTANCE 20
 
-class BigBoi : Entity {
+class BigBoi : public Entity {
 public:
     BigBoi();
     void updateEntity();
@@ -21,6 +21,7 @@ public:
     bool alive = true;
     bool firing_from_left = true;
     bool firing_from_right = false;
+    bool take_damage = false;
 
     // positioning
     int starting_position = 0;

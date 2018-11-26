@@ -25,6 +25,8 @@ void setupLevel(int levelNum)
       enemy[i].dead = false;
       enemy[i].anchor = levels[levelNum].enemyPos[i];
       enemy[i].sleep_delay = levels[levelNum].enemyDelay[i];
+      enemy[i].sleep_counter = 0;
+      enemy[i].sleeping = true;
     }
     for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLERS
     {

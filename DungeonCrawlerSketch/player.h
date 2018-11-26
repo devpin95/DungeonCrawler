@@ -10,12 +10,12 @@
 #define ROAMING_RIGHT_BOUND 0
 
 // Attacking values
-#define ATTACKING_LEFT_BOUND -2
-#define ATTACKING_RIGHT_BOUND 2
+#define ATTACKING_LEFT_BOUND 0
+#define ATTACKING_RIGHT_BOUND 5
 #define ATTACKING_INTERVAL 20
 #define STARTUP_ATTACKING_INTERVAL 5
 #define SHUTDOWN_ATTACKING_INTERVAL 10
-#define CHARGING_INTERVAL 30
+#define CHARGING_INTERVAL 40
 
 class Player : public Entity {
 public:
@@ -47,9 +47,9 @@ public:
 //        pixels[0].B = 255;
 
         for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
-            pixels[i].R = 0;
+            pixels[i].R = 225;
             pixels[i].G = 0;
-            pixels[i].B = 250;
+            pixels[i].B = 225;
         }
     };
 
