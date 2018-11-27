@@ -1,9 +1,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "Pixel.h"
+#include <FastLED.h>
 #include <Math.h>
-
+#include "Pixel.h"
 
 class Entity {
 public:
