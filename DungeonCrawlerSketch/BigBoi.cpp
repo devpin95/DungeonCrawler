@@ -100,7 +100,7 @@ void BigBoi::redraw() {
             }
         }
 
-        left_bound = BIGBOI_PROJECTILES;
+        left_bound = 0;
         right_bound = BIGBOI_PROJECTILES + health;
     }
     else if ( firing_to_right ) {
@@ -129,6 +129,6 @@ void BigBoi::redraw() {
         }
 
         left_bound = 0;
-        right_bound = health;
+        right_bound = BIGBOI_PROJECTILES + health;
     }
 }
