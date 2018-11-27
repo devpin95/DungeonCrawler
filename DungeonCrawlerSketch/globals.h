@@ -11,6 +11,9 @@ const int DEATH_FPS = 1000/100;
 //win animation
 const int WIN_FPS = 1000/500;
 
-const int POOL_NUMENEMIES = 0;
+const int POOL_NUM_ENEMIES = 10;
+const int POOL_NUM_PATROLLERS = 10;
+const int POOL_NUM_LAVA = 5;
+const int POOL_NUM_WIND = 5;
 
 #endif //DUNGEONCRAWLER_GLOBALS_H
