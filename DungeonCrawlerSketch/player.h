@@ -20,8 +20,8 @@
 class Player : public Entity {
 public:
     Player();
-    void updateEntity();
-    void drawEntity( CRGB board[], const int &blen );
+    virtual void updateEntity() override;
+    virtual void drawEntity( CRGB board[], const int &blen ) override;
 
     // maybe we can take these out and just make attacking public
     bool isAttacking( void ) const { return attacking; };

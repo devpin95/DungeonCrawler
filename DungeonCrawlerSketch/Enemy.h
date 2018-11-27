@@ -15,8 +15,8 @@
 class Enemy : public Entity {
     public:
     Enemy( const int &spos );
-    void updateEntity();
-    void drawEntity( CRGB board[], const int &blen );
+    virtual void updateEntity() override;
+    virtual void drawEntity( CRGB board[], const int &blen ) override;
 
     // appearance
     Pixel pixels[MAX_ENEMY_LENGTH];

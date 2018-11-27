@@ -11,8 +11,8 @@
 class Wind : public Entity {
 public:
     Wind( const int &spos, const int &mul );
-    void updateEntity();
-    void drawEntity( CRGB board[], const int &blen );
+    virtual void updateEntity() override;
+    virtual void drawEntity( CRGB board[], const int &blen ) override;
 
     Pixel pixels[MAX_WIND_LENGTH];
 

@@ -15,8 +15,8 @@ public:
     Lava( const int &spos );
     ~Lava() { delete[] pixels; };
     void setLength( const int &len );
-    void updateEntity();
-    void drawEntity( CRGB board[], const int &blen );
+    virtual void updateEntity() override;
+    virtual void drawEntity( CRGB board[], const int &blen ) override;
 
     void startAttack() {
         attacking = true;

@@ -16,8 +16,8 @@ class Patroller : public Entity {
 public:
     Patroller( const int &spos );
     void setOffset( const int &off ) { patrol += off; };
-    void updateEntity();
-    void drawEntity( CRGB board[], const int &blen );
+    virtual void updateEntity() override;
+    virtual void drawEntity( CRGB board[], const int &blen ) override;
 
     // appearance
     Pixel pixels[MAX_PATROLLER_LENGTH];
