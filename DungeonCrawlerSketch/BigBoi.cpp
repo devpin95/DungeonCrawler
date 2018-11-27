@@ -77,14 +77,14 @@ void BigBoi::drawEntity( CRGB board[], const int &blen ) {
 void BigBoi::redraw() {
     if ( firing_to_left ) {
         for ( int i = 0; i < BIGBOI_LENGTH; ++i ) {
-            if ( i < BIGBOI_PROJECTILES ) {
+            if ( i < projectiles ) {
                 // draw the projectiles white
                 pixels[i].R = 50;
                 pixels[i].G = 50;
                 pixels[i].B = 50;
                 pixels[i].index = getAnchorIndex() + i;
             }
-            else if ( i < BIGBOI_PROJECTILES + health ) {
+            else if ( i < projectiles + health ) {
                 // draw the body red
                 pixels[i].R = 255;
                 pixels[i].G = 0;
@@ -101,18 +101,18 @@ void BigBoi::redraw() {
         }
 
         left_bound = 0;
-        right_bound = BIGBOI_PROJECTILES + health;
+        right_bound = projectiles + health;
     }
     else if ( firing_to_right ) {
         for ( int i = 0; i < BIGBOI_LENGTH; ++i ) {
-            if ( i <= health ) {
+            if ( i < health ) {
                 // draw the body red
                 pixels[i].R = 255;
                 pixels[i].G = 0;
                 pixels[i].B = 0;
                 pixels[i].index = getAnchorIndex() + i;
             }
-            else if ( i <= health + BIGBOI_PROJECTILES ) {
+            else if ( i < health + projectiles ) {
                 // draw the projectiles white
                 pixels[i].R = 50;
                 pixels[i].G = 50;
@@ -129,6 +129,6 @@ void BigBoi::redraw() {
         }
 
         left_bound = 0;
-        right_bound = BIGBOI_PROJECTILES + health;
+        right_bound = projectiles + health;
     }
 }
