@@ -8,6 +8,8 @@
 #define BIGBOI_PATROL_SPEED 2
 #define BIGBOI_PATROL_DISTANCE 20
 
+#define BIGBOI_PROJECTILES 3
+
 class BigBoi : public Entity {
 public:
     BigBoi();
@@ -25,6 +27,8 @@ public:
 
     // positioning
     int starting_position = 0;
+
+    int projectiles = 3;
 
     // counters
     int patrol = 0;
