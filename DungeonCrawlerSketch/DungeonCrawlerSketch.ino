@@ -21,7 +21,7 @@ Player player;
 //Wind wind[2] = { Wind( 50, 1 ), Wind(60, 1) };
 
 //Entity Pools
-Enemy enemy[10] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
+Enemy enemy[POOL_NUMENEMIES] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
 Patroller patroller[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
 Lava lava[5] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
 Wind wind[5] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
@@ -31,6 +31,9 @@ BigBoi bigboi;
 //Level Check
 bool levelCompleteArray[NUMLEVELS] = { false };//ten levels (check if they are complete)
 
+//death animation
+int death_left_runner = 0;
+int death_right_runner = 0;
 
 #include "utilityFunctions.h"
 

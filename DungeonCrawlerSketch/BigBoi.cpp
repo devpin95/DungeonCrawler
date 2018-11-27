@@ -60,6 +60,9 @@ void BigBoi::updateEntity() {
         redraw();
     }
 
+    levels[0].numEnemies = 1;
+    enemy[0].alive = false;
+
     // update the pixel positions
     for ( int i = 0; i < BIGBOI_LENGTH; ++ i ) {
         pixels[i].index = getAnchorIndex() + i;

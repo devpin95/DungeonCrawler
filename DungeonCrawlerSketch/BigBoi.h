@@ -3,12 +3,19 @@
 
 #include <FastLED.h>
 #include "Entity.h"
+#include "globals.h"
+#include "Level.h"
+#include "Enemy.h"
 
 #define BIGBOI_LENGTH 13
 #define BIGBOI_PATROL_SPEED 2
 #define BIGBOI_PATROL_DISTANCE 20
 
 #define BIGBOI_PROJECTILES 3
+
+extern Level levels[NUMLEVELS];
+extern Enemy enemy[POOL_NUMENEMIES];
+
 
 class BigBoi : public Entity {
 public:
