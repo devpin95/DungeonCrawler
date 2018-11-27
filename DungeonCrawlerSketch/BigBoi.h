@@ -6,6 +6,9 @@
 #include "globals.h"
 #include "Level.h"
 #include "Enemy.h"
+#include "patroller.h"
+#include "lava.h"
+#include "Wind.h"
 
 #define BIGBOI_LENGTH 13
 #define BIGBOI_PATROL_SPEED 2
@@ -14,8 +17,10 @@
 #define BIGBOI_PROJECTILES 3
 
 extern Level levels[NUMLEVELS];
-extern Enemy enemy[POOL_NUMENEMIES];
-
+extern Enemy enemy[POOL_NUM_ENEMIES];
+extern Patroller patroller[POOL_NUM_PATROLLERS];
+extern Lava lava[POOL_NUM_LAVA];
+extern Wind wind[POOL_NUM_WIND];
 
 class BigBoi : public Entity {
 public:
