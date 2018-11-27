@@ -15,7 +15,10 @@
 #define BIGBOI_PATROL_DISTANCE 20
 
 #define BIGBOI_PROJECTILES 3
+#define BIGBOI_START_SHOOTING 120
+#define BIGBOI_SHOT_DELAY 50
 
+// extern in the pool arrays
 extern Level levels[NUMLEVELS];
 extern Enemy enemy[POOL_NUM_ENEMIES];
 extern Patroller patroller[POOL_NUM_PATROLLERS];
@@ -41,18 +44,21 @@ public:
 
     // boss attributes
     int health = 10;
-    bool alive = true;
+    bool dead = false;
     bool firing_to_left = true;
     bool firing_to_right = false;
     bool take_damage = false;
-    bool 8_health = false;
-    bool 6_health = false;
-    bool 4_health = false;
-    bool 2_health = false;
+    bool _8_health = false;
+    bool _6_health = false;
+    bool _4_health = false;
+    bool _2_health = false;
+
+    bool ready_to_shoot = true;
 
     // positioning
     int starting_position = 0;
-
+    int loading_counter = 0;
+    int shot_delay_counter = 0;
     int projectiles = 3;
 
     // counters

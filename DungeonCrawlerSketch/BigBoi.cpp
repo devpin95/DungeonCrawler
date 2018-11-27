@@ -21,6 +21,12 @@ BigBoi::BigBoi() {
     anchor = starting_position;
     left_bound = 0;
     right_bound = BIGBOI_LENGTH;
+
+    // set up the projectiles
+    levels[NUMLEVELS-1].numEnemies = 3;
+    for ( int i = 0; i < BIGBOI_PROJECTILES; ++i ) {
+        enemy[i].dead = true;
+    }
 }
 
 void BigBoi::updateEntity() {
@@ -29,6 +35,10 @@ void BigBoi::updateEntity() {
 
     if (take_damage && starting_position == 250)
     {
+        // reset counters
+        loading_counter = 0;
+        shot_delay_counter = 0;
+
         // change the position of the bigboi
         starting_position = 50;
         anchor = 50;
@@ -38,52 +48,109 @@ void BigBoi::updateEntity() {
 
         take_damage = false;
         health -= 2;
+
         projectiles = BIGBOI_PROJECTILES;
+        ready_to_shoot = false;
 
         // update the pixels
         redraw();
     }
     else if (take_damage && starting_position == 50)
     {
+        // reset counters
+        loading_counter = 0;
+        shot_delay_counter = 0;
+
+        // reset position
         starting_position = 250;
         anchor = 250;
 
-        // change the position of the bigboi
+        // reset the side bigboi is shooting from
         firing_to_right = false;
         firing_to_left = true;
 
+        // take damage
         take_damage = false;
         health -= 2;
 
+        // reset projectiles
         projectiles = BIGBOI_PROJECTILES;
+        ready_to_shoot = false;
+
         // update the pixels
         redraw();
     }
 
-    levels[NUMLEVELS-1].numEnemies = 4;
-    enemy[3].dead = false;
+    ++loading_counter;
+    // Counter up until we are ready to shoot
+    if ( !ready_to_shoot && loading_counter == BIGBOI_START_SHOOTING ) {
+        ready_to_shoot = true;
+    }
 
-    if (health == 8 && !8_health)//activate lava
+    // start shooting
+    if ( ready_to_shoot ) {
+        ++shot_delay_counter;
+
+        if ( projectiles == 0 ) {
+            projectiles = BIGBOI_PROJECTILES;
+            redraw();
+
+            if ( firing_to_left ) {
+                anchor -= BIGBOI_PROJECTILES;
+            }
+        }
+
+        if ( shot_delay_counter == BIGBOI_SHOT_DELAY ) {
+            shot_delay_counter = 0;
+            --projectiles;
+
+            enemy[BIGBOI_PROJECTILES - projectiles].dead = false;
+
+
+            if ( firing_to_left ) {
+                enemy[BIGBOI_PROJECTILES - projectiles - 1].anchor = anchor;
+                enemy[BIGBOI_PROJECTILES - projectiles - 1].speed = -1;
+                anchor += 1;
+            }
+            else if ( firing_to_right ) {
+                enemy[BIGBOI_PROJECTILES - projectiles - 1].anchor = health + projectiles;
+                enemy[BIGBOI_PROJECTILES - projectiles - 1].speed = 1;
+            }
+
+            redraw();
+
+            if ( projectiles == 0 ) {
+                ready_to_shoot = false;
+                loading_counter = 0;
+            }
+        }
+    }
+
+    // Environment manipulation
+    levels[NUMLEVELS-1].numEnemies = 4;
+    //enemy[3].dead = false;
+
+    if (health == 8 && !_8_health)//activate lava
     {
-        8_health = true;
+        _8_health = true;
         levels[NUMLEVELS-1].numLava = 1;//one biggish one in the middle
     }
 
-    if (health == 6 && !6_health)//activate different lava
+    if (health == 6 && !_6_health)//activate different lava
     {
-        6_health = true;
+        _6_health = true;
         levels[NUMLEVELS-1].numLava = 3;//one on either side of the big one
     }
 
-    if (health == 4 && !4_health)//activate wind
+    if (health == 4 && !_4_health)//activate wind
     {
-      4_health = true;
+      _4_health = true;
       levels[NUMLEVELS-1].numWind = 2;//on either side of the lava
     }
 
-    if (health == 2 && !2_health)//add flowing lava
+    if (health == 2 && !_2_health)//add flowing lava
     {
-      2_health = true;
+      _2_health = true;
       levels[NUMLEVELS-1].hasLavaFlow = true;
     }
 
@@ -99,7 +166,7 @@ void BigBoi::updateEntity() {
 }
 
 void BigBoi::drawEntity( CRGB board[], const int &blen ) {
-    if ( !alive ) return;
+    if ( !dead ) return;
 
     for ( int i = 0; i < BIGBOI_LENGTH; ++ i ) {
         board[ pixels[i].index ] = CRGB( pixels[i].R, pixels[i].G, pixels[i].B );
