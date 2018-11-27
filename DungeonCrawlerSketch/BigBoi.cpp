@@ -79,9 +79,9 @@ void BigBoi::redraw() {
         for ( int i = 0; i < BIGBOI_LENGTH; ++i ) {
             if ( i < BIGBOI_PROJECTILES ) {
                 // draw the projectiles white
-                pixels[i].R = 255;
-                pixels[i].G = 255;
-                pixels[i].B = 255;
+                pixels[i].R = 50;
+                pixels[i].G = 50;
+                pixels[i].B = 50;
                 pixels[i].index = getAnchorIndex() + i;
             }
             else if ( i < BIGBOI_PROJECTILES + health ) {
@@ -99,6 +99,9 @@ void BigBoi::redraw() {
                 pixels[i].index = getAnchorIndex() + i;
             }
         }
+
+        left_bound = BIGBOI_PROJECTILES;
+        right_bound = BIGBOI_PROJECTILES + health;
     }
     else if ( firing_to_right ) {
         for ( int i = 0; i < BIGBOI_LENGTH; ++i ) {
@@ -111,9 +114,9 @@ void BigBoi::redraw() {
             }
             else if ( i <= health + BIGBOI_PROJECTILES ) {
                 // draw the projectiles white
-                pixels[i].R = 255;
-                pixels[i].G = 255;
-                pixels[i].B = 255;
+                pixels[i].R = 50;
+                pixels[i].G = 50;
+                pixels[i].B = 50;
                 pixels[i].index = getAnchorIndex() + i;
             }
             else {
@@ -124,5 +127,8 @@ void BigBoi::redraw() {
                 pixels[i].index = getAnchorIndex() + i;
             }
         }
+
+        left_bound = 0;
+        right_bound = health;
     }
 }

@@ -4,7 +4,7 @@
 #include <FastLED.h>
 #include "Entity.h"
 
-#define BIGBOI_LENGTH 16
+#define BIGBOI_LENGTH 13
 #define BIGBOI_PATROL_SPEED 2
 #define BIGBOI_PATROL_DISTANCE 20
 
@@ -17,6 +17,7 @@ public:
     void drawEntity( CRGB board[], const int &blen );
 
     void redraw();
+    void resetBigBoi() {};
 
     Pixel pixels[BIGBOI_LENGTH];
 
