@@ -38,6 +38,9 @@ public:
         health = 10;
         firing_to_left = true;
         firing_to_right = false;
+        loading_counter = 0;
+        shot_delay_counter = 0;
+        projectiles = BIGBOI_PROJECTILES;
     };
 
     Pixel pixels[BIGBOI_LENGTH];
