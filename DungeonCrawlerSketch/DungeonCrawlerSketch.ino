@@ -21,10 +21,10 @@ Player player;
 //Wind wind[2] = { Wind( 50, 1 ), Wind(60, 1) };
 
 //Entity Pools
-Enemy enemy[POOL_NUMENEMIES] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
-Patroller patroller[10] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
-Lava lava[5] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
-Wind wind[5] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
+Enemy enemy[POOL_NUM_ENEMIES] = { Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0), Enemy(0) };
+Patroller patroller[POOL_NUM_PATROLLERS] = { Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0), Patroller(0) };
+Lava lava[POOL_NUM_LAVA] = { Lava(0), Lava(0), Lava(0), Lava(0), Lava(0) };
+Wind wind[POOL_NUM_WIND] = { Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1), Wind(0,1) };
 FlowingLava flowinglava;
 BigBoi bigboi;
 
