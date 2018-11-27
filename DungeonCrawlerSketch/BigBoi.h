@@ -16,13 +16,15 @@ public:
     void updateEntity();
     void drawEntity( CRGB board[], const int &blen );
 
+    void redraw();
+
     Pixel pixels[BIGBOI_LENGTH];
 
     // boss attributes
     int health = 10;
     bool alive = true;
-    bool firing_from_left = true;
-    bool firing_from_right = false;
+    bool firing_to_left = true;
+    bool firing_to_right = false;
     bool take_damage = false;
 
     // positioning
