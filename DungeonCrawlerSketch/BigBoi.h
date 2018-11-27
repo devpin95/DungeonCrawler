@@ -29,7 +29,13 @@ public:
     void drawEntity( CRGB board[], const int &blen );
 
     void redraw();
-    void resetBigBoi() {};
+    void reset() {
+        starting_position = 250;
+        anchor = 250;
+        health = 10;
+        firing_to_left = true;
+        firing_to_right = false;
+    };
 
     Pixel pixels[BIGBOI_LENGTH];
 
@@ -39,6 +45,10 @@ public:
     bool firing_to_left = true;
     bool firing_to_right = false;
     bool take_damage = false;
+    bool 8_health = false;
+    bool 6_health = false;
+    bool 4_health = false;
+    bool 2_health = false;
 
     // positioning
     int starting_position = 0;

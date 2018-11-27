@@ -65,7 +65,7 @@ void loop() {
     //Serial.println("LOOP");
 
     // put your main code here, to run repeatedly:
-    for (int levelNum = 0; levelNum < NUMLEVELS; ++levelNum)
+    for (int levelNum = 9; levelNum < NUMLEVELS; ++levelNum)
     {            
       while (levelCompleteArray[levelNum] == false)
       {
@@ -79,6 +79,8 @@ void loop() {
             levels[levelNum].numPatrollers = 0;
             levels[levelNum].numLava = 0;
             levels[levelNum].numWind = 0;
+            bigboi.reset();
+            bigboi.redraw();
         }
 
         while (!player.dead && levelCompleteArray[levelNum] == false)//check for if the player is alive and has not yet completed the level
@@ -155,7 +157,7 @@ void loop() {
             }
 
             // check for if player made it to end of the board (WIN)
-            if ( player.anchor > 290)
+            if ( player.anchor > 290 && levelNum != NUMLEVELS - 1)
             {
                 levelCompleteArray[levelNum] = true;//got to the end (LEVEL COMPLETE)            
             }

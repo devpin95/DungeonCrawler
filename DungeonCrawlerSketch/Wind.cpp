@@ -3,9 +3,9 @@
 Wind::Wind( const int &spos, const int &mul ) : Entity( ) {
     // set all of the pixels to white
     for ( int i = 0; i < MAX_WIND_LENGTH; ++ i ) {
-        pixels[i].R = 20 - (i*1);
-        pixels[i].G = 80 - (i*4);
-        pixels[i].B = 60 - (i*3);
+        pixels[i].R = 10 - (i*0.5);
+        pixels[i].G = 20 - (i*1);
+        pixels[i].B = 40 - (i*2);
         pixels[i].index = spos + i;
     }
 

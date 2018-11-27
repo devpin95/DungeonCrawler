@@ -4,9 +4,9 @@ BigBoi::BigBoi() {
     // set all of the pixels to white
     for ( int i = 0; i < BIGBOI_LENGTH; ++ i ) {
         if ( i < 3 ) {
-            pixels[i].R = 255;
-            pixels[i].G = 255;
-            pixels[i].B = 255;
+            pixels[i].R = 50;
+            pixels[i].G = 50;
+            pixels[i].B = 50;
         }
         else {
             pixels[i].R = 255;
@@ -60,8 +60,37 @@ void BigBoi::updateEntity() {
         redraw();
     }
 
-    levels[0].numEnemies = 1;
-    enemy[0].dead = false;
+    levels[NUMLEVELS-1].numEnemies = 4;
+    enemy[3].dead = false;
+
+    if (health == 8 && !8_health)//activate lava
+    {
+        8_health = true;
+        levels[NUMLEVELS-1].numLava = 1;//one biggish one in the middle
+    }
+
+    if (health == 6 && !6_health)//activate different lava
+    {
+        6_health = true;
+        levels[NUMLEVELS-1].numLava = 3;//one on either side of the big one
+    }
+
+    if (health == 4 && !4_health)//activate wind
+    {
+      4_health = true;
+      levels[NUMLEVELS-1].numWind = 2;//on either side of the lava
+    }
+
+    if (health == 2 && !2_health)//add flowing lava
+    {
+      2_health = true;
+      levels[NUMLEVELS-1].hasLavaFlow = true;
+    }
+
+    if (health == 0)//dead
+    {
+      
+    }
 
     // update the pixel positions
     for ( int i = 0; i < BIGBOI_LENGTH; ++ i ) {
