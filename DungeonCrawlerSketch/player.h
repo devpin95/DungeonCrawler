@@ -42,9 +42,7 @@ public:
         right_bound = ATTACKING_RIGHT_BOUND;
 
         // set the single pixel to blue
-//        pixels[0].R = 0;
-//        pixels[0].G = 0;
-//        pixels[0].B = 255;
+        anchor -= 2;
 
         for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
             pixels[i].R = 225;
@@ -59,6 +57,8 @@ public:
         starting_attack = false;
         left_bound = ROAMING_LEFT_BOUND;
         right_bound = ROAMING_RIGHT_BOUND;
+
+        anchor += 2;
 
         for ( int i = 0; i < MAX_PLAYER_LENGTH; ++i ) {
             pixels[i].R = 0;
