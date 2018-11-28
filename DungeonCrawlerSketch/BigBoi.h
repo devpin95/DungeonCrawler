@@ -41,6 +41,15 @@ public:
         loading_counter = 0;
         shot_delay_counter = 0;
         projectiles = BIGBOI_PROJECTILES;
+        bool _8_health = false;
+        bool _6_health = false;
+        bool _4_health = false;
+        bool _2_health = false;
+
+        for (int i = 0; i < POOL_NUM_ENEMIES; i++)
+        {
+          enemy[i].dead = true;
+        }
     };
 
     Pixel pixels[BIGBOI_LENGTH];

@@ -75,7 +75,7 @@ void loop() {
         //this way, the boss will have control over what gets shown
         if (levelNum == NUMLEVELS - 1)
         {
-            levels[levelNum].numEnemies = 0;
+            //levels[levelNum].numEnemies = 3;
             levels[levelNum].numPatrollers = 0;
             levels[levelNum].numLava = 0;
             levels[levelNum].numWind = 0;
@@ -166,7 +166,8 @@ void loop() {
             //COLLISIONS
             for (int i = 0; i < levels[levelNum].numEnemies; ++i)//ENEMIES
             {
-                if ( player.getRightBoundIndex() >= enemy[i].getLeftBoundIndex()
+                if ( ((player.getRightBoundIndex() >= enemy[i].getLeftBoundIndex() && enemy[i].enemy_speed < 0)
+                     || (player.getLeftBoundIndex() <= enemy[i].getRightBoundIndex() && enemy[i].enemy_speed > 0))
                      && !enemy[i].dead )
                 {
                     if ( player.attacking ) {

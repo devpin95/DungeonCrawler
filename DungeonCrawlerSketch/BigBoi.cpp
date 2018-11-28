@@ -100,22 +100,22 @@ void BigBoi::updateEntity() {
             }
         }
 
-        if ( shot_delay_counter == BIGBOI_SHOT_DELAY ) {
+        if ( shot_delay_counter >= BIGBOI_SHOT_DELAY ) {
             shot_delay_counter = 0;
             --projectiles;
 
-            enemy[BIGBOI_PROJECTILES - projectiles].dead = false;
-
-
             if ( firing_to_left ) {
                 enemy[BIGBOI_PROJECTILES - projectiles - 1].anchor = anchor;
-                enemy[BIGBOI_PROJECTILES - projectiles - 1].speed = -1;
+                enemy[BIGBOI_PROJECTILES - projectiles - 1].enemy_speed = -1;
                 anchor += 1;
             }
             else if ( firing_to_right ) {
-                enemy[BIGBOI_PROJECTILES - projectiles - 1].anchor = health + projectiles;
-                enemy[BIGBOI_PROJECTILES - projectiles - 1].speed = 1;
+                enemy[BIGBOI_PROJECTILES - projectiles - 1].anchor = anchor + health + projectiles;
+                enemy[BIGBOI_PROJECTILES - projectiles - 1].enemy_speed = 1;
             }
+
+            enemy[BIGBOI_PROJECTILES - projectiles -1].updateEntity();
+            enemy[BIGBOI_PROJECTILES - projectiles -1].dead = false;
 
             redraw();
 
@@ -127,7 +127,7 @@ void BigBoi::updateEntity() {
     }
 
     // Environment manipulation
-    levels[NUMLEVELS-1].numEnemies = 4;
+    //levels[NUMLEVELS-1].numEnemies = 3;
     //enemy[3].dead = false;
 
     if (health == 8 && !_8_health)//activate lava
@@ -166,7 +166,7 @@ void BigBoi::updateEntity() {
 }
 
 void BigBoi::drawEntity( CRGB board[], const int &blen ) {
-    if ( !dead ) return;
+    if ( dead ) return;
 
     for ( int i = 0; i < BIGBOI_LENGTH; ++ i ) {
         board[ pixels[i].index ] = CRGB( pixels[i].R, pixels[i].G, pixels[i].B );
