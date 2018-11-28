@@ -27,7 +27,7 @@ void setupLevel(int levelNum)
       enemy[i].sleep_delay = levels[levelNum].enemyDelay[i];
       enemy[i].sleep_counter = 0;
       enemy[i].sleeping = true;
-      enemy[i].enemy_speed = 1;
+      enemy[i].enemy_speed = -1;
     }
     for (int i = 0; i < levels[levelNum].numPatrollers; ++i)//PATROLLERS
     {
