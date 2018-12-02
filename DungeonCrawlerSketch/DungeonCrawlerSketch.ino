@@ -65,7 +65,7 @@ void loop() {
     //Serial.println("LOOP");
 
     // put your main code here, to run repeatedly:
-    for (int levelNum = 9; levelNum < NUMLEVELS; ++levelNum)
+    for (int levelNum = 0; levelNum < NUMLEVELS; ++levelNum)
     {            
       while (levelCompleteArray[levelNum] == false)
       {
@@ -100,66 +100,76 @@ void loop() {
             {
 //                AcY += 6000;//offset of gyro not being completely level
 //                player.speed = map(AcY, -15000, 15000, -2, 2) * 0.5;
-                int tempAcY = AcY + 1000;
+                int tempAcY = AcY + 1200;
                 if (tempAcY > -3000 && tempAcY < 3000)
                 {
                   player.speed = 0;
                 }
 
-                if (tempAcY > 3000)
+                if (player.anchor < 300)
                 {
-                  player.speed = 0.2;
-                }
-                if (tempAcY > 8000)
-                {
-                  player.speed = 0.6;
-                }
-                if (tempAcY > 12000)
-                {
-                  player.speed = 1;
+                    if (tempAcY > 3000)
+                    {
+                      player.speed = 0.2;
+                    }
+                    if (tempAcY > 8000)
+                    {
+                      player.speed = 0.6;
+                    }
+                    if (tempAcY > 12000)
+                    {
+                      player.speed = 1;
+                    }
                 }
 
-                if (tempAcY < -3000)
+                if (player.anchor > 10)
                 {
-                  player.speed = -0.2;
-                }
-                if (tempAcY < -8000)
-                {
-                  player.speed = -0.6;
-                }
-                if (tempAcY < -12000)
-                {
-                  player.speed = -1;
+                    if (tempAcY < -3000)
+                    {
+                      player.speed = -0.2;
+                    }
+                    if (tempAcY < -8000)
+                    {
+                      player.speed = -0.6;
+                    }
+                    if (tempAcY < -12000)
+                    {
+                      player.speed = -1;
+                    }
                 }
             }
 
             //check for if player attacks and he is not charging
-            if ((abs(GyX) > 32000 || abs(GyY) > 32000 || abs(GyZ) > 32000) && !player.charging)
+            if ((abs(GyX) > 32500 || abs(GyY) > 32500 || abs(GyZ) > 32500) && !player.charging)
             {
                 player.startAttack();
             }
 
             // check for collision with the edge of the board
-            if ( player.getRightBoundIndex() > NUMLEDS && player.speed > 0 )//check end of board
-            {
-                player.stuck_right = true;
-                player.setAnchorIndex( NUMLEDS - player.getRightBound() );
-            }
-            else if ( player.getLeftBoundIndex() < 0 && player.speed < 0 )//check beginning of board
-            {
-                player.stuck_left = true;
-                player.setAnchorIndex( 0 + player.getLeftBound() );
-            }
-            else
-            {
-                player.stuck_right = false;
-                player.stuck_left = false;
-            }
+//            if ( player.getRightBoundIndex() > NUMLEDS && player.speed > 0 )//check end of board
+//            {
+//                player.stuck_right = true;
+//                player.setAnchorIndex( NUMLEDS - player.getRightBound() );
+//            }
+//            else if ( player.getLeftBoundIndex() < 9 && player.speed < 0 )//check beginning of board
+//            {
+//                player.stuck_left = true;
+//                player.setAnchorIndex( 0 + player.getLeftBound() );
+//            }
+//            else
+//            {
+//                player.stuck_right = false;
+//                player.stuck_left = false;
+//            }
 
             // check for if player made it to end of the board (WIN)
             if ( player.anchor > 290 && levelNum != NUMLEVELS - 1)
             {
                 levelCompleteArray[levelNum] = true;//got to the end (LEVEL COMPLETE)            
+            }
+            if (bigboi.dead)
+            {
+                levelCompleteArray[levelNum] = true;//killed the boss
             }
 
 

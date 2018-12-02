@@ -95,9 +95,9 @@ void BigBoi::updateEntity() {
             projectiles = BIGBOI_PROJECTILES;
             redraw();
 
-            if ( firing_to_left ) {
-                anchor -= BIGBOI_PROJECTILES;
-            }
+//            if ( firing_to_left ) {
+//                anchor -= BIGBOI_PROJECTILES;
+//            }
         }
 
         if ( shot_delay_counter >= BIGBOI_SHOT_DELAY ) {
@@ -156,7 +156,7 @@ void BigBoi::updateEntity() {
 
     if (health == 0)//dead
     {
-      
+        dead = true;
     }
 
     // update the pixel positions
